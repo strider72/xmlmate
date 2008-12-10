@@ -8,7 +8,6 @@
 
 #import "XPathResultTextView.h"
 
-
 @implementation XPathResultTextView
 
 /*

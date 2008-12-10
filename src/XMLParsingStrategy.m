@@ -16,8 +16,6 @@
 
 @implementation XMLParsingStrategy
 
-#pragma mark -
-
 - (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService {
 	self = [super init];
 	if (self != nil) {
@@ -77,17 +75,13 @@
 - (NSData *)fetchRemoteResource:(NSString *)URLString error:(NSError **)err {
 	NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
 	NSURLResponse *res = nil;
-	NSData *data = [NSURLConnection sendSynchronousRequest:req
-										 returningResponse:&res
-													 error:err];
+	NSData *data = [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:err];
 	return data;
 }
 
 
 - (NSData *)fetchLocalResource:(NSString *)URLString error:(NSError **)err {
-	return [NSData dataWithContentsOfFile:URLString
-								  options:0
-									error:err];
+	return [NSData dataWithContentsOfFile:URLString options:0 error:err];
 }
 
 @end

@@ -3,7 +3,7 @@
 //  XMLMatePlugIn
 //
 //  Created by Todd Ditchendorf on 1/1/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Todd Ditchendorf. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

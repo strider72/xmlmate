@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-
 @protocol XMLCatalogService <NSObject>
 - (id)initWithDelegate:(id)aDelegate environmentVariables:(id)vars;
 - (void)setPrefer:(int)n;
 - (void)putCatalogContents:(NSArray *)catalogContents;
 @end
-
 
 @interface NSObject (XMLCatalogServiceDelegate)
 - (void)catalogService:(id <XMLCatalogService>)service didUpdate:(NSString *)catalogXMLString;

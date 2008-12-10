@@ -10,7 +10,6 @@
 #import "XMLParsingStrategy.h"
 #import <libxslt/xsltinternals.h>
 
-
 @interface XMLParsingSchematronStrategy : XMLParsingStrategy {
 	xsltStylesheetPtr metaStylesheet;
 }

@@ -2,22 +2,21 @@
 
 @implementation BorderView
 
-- (id)initWithFrame:(NSRect)frameRect
-{
+- (id)initWithFrame:(NSRect)frameRect {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
 		topColor = [NSColor grayColor];
 	}
 	return self;
 }
 
-- (void) dealloc {
+
+- (void)dealloc {
 	[topColor release];
 	[super dealloc];
 }
 
 
-- (void)drawRect:(NSRect)rect
-{
+- (void)drawRect:(NSRect)rect {
 	[super drawRect:rect];
 	[topColor set];
 	[NSBezierPath strokeRect:rect];

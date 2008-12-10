@@ -12,7 +12,6 @@
 #import <libxml/xmlschemas.h>
 #import <libxml/xinclude.h>
 
-
 @implementation XMLParsingXSDStrategy
 
 - (void)parse:(XMLParseCommand *)command {
@@ -41,8 +40,7 @@
 	
 	@try {
 		schemaPtr = xmlSchemaParse(parserCtxt);
-	}
-	@catch (NSException *e) {
+	} @catch (NSException *e) {
 		goto leave;
 	}
 		

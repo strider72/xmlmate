@@ -18,7 +18,6 @@
 #import "XMLParsingSchematronStrategy.h"
 #import <libxslt/xsltutils.h>
 
-
 NSString * const XMLParseErrorFilenameKey	= @"filename";
 NSString * const XMLParseErrorLineKey		= @"line";
 NSString * const XMLParseErrorLevelStrKey	= @"levelStr";
@@ -65,18 +64,18 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 	[self setupLibxml];
 }
 
-#pragma mark -
 
-- (id)initWithDelegate:(id)aDelegate {
+- (id)initWithDelegate:(id)d {
 	self = [super init];
 	if (self != nil) {
-		delegate = aDelegate;
+		delegate = d;
 	}
 	return self;
 }
 
 
 - (void)dealloc {
+    delegate = nil;
 	// cleanup libxml
 	xmlCleanupParser();
 	[super dealloc];
@@ -639,8 +638,7 @@ static void myStructuredErrorAdapter(id self, xmlErrorPtr err) {
  ^
  */ 
 
-void myGenericErrorHandler(id self, const char *msg, ...)
-{
+void myGenericErrorHandler(id self, const char *msg, ...) {
 	va_list vargs;
 	va_start(vargs, msg);
 	
@@ -651,8 +649,6 @@ void myGenericErrorHandler(id self, const char *msg, ...)
 	
 	va_end(vargs);
 }
-
-
 
 
 #pragma mark -

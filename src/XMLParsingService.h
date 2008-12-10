@@ -17,7 +17,6 @@ typedef enum XMLValidationType {
 	XMLValidationTypeSchematron
 } XMLValidationType;
 
-
 extern NSString * const XMLParseErrorFilenameKey;
 extern NSString * const XMLParseErrorLineKey;
 extern NSString * const XMLParseErrorLevelStrKey;
@@ -32,14 +31,12 @@ extern NSString * const XMLParseErrorRoleKey;
 extern NSString * const XMLParseErrorSubjectKey;
 extern NSString * const XMLParseErrorDiagnosticsKey;
 
-
 @class XMLParseCommand;
 
 @protocol XMLParsingService <NSObject>
 - (id)initWithDelegate:(id)aDelegate;
 - (void)parse:(XMLParseCommand *)c;
 @end
-
 
 @interface NSObject (XMLParsingServiceDelegate)
 

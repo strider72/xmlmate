@@ -12,7 +12,6 @@
 #import <libxml/valid.h>
 #import <libxml/xinclude.h>
 
-
 @implementation XMLParsingAutoDTDStrategy
 
 - (void)parse:(XMLParseCommand *)command {

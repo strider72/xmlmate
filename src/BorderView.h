@@ -2,8 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BorderView : NSView
-{
+@interface BorderView : NSView {
 	NSColor *topColor;
 }
 @end

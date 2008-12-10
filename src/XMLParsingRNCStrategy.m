@@ -8,7 +8,6 @@
 
 #import "XMLParsingRNCStrategy.h"
 
-
 @implementation XMLParsingRNCStrategy
 
 @end

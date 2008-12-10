@@ -90,5 +90,4 @@
 - (void)setQueryResultLength:(int)n;
 - (NSArray *)queryResultNodes;
 - (void)setQueryResultNodes:(NSArray *)a;
-
 @end

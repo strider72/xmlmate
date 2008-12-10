@@ -20,8 +20,7 @@
 
 static XMLParsingSchematronStrategy *instance = nil;
 
-static void myGenericErrorAdapter(id self, const char *str, ...)
-{
+static void myGenericErrorAdapter(id self, const char *str, ...) {
 	va_list vargs;
 	va_start(vargs, str);
 	
@@ -32,8 +31,7 @@ static void myGenericErrorAdapter(id self, const char *str, ...)
 	va_end(vargs);
 }
 
-static int regexpModuleGetOptions(xmlChar *optStr)
-{
+static int regexpModuleGetOptions(xmlChar *optStr) {
 	int opts = 0;
 	NSString *flags = [NSString stringWithUTF8String:(char *)optStr];
 	NSRange r = [flags rangeOfString:@"i"];
@@ -52,8 +50,7 @@ static int regexpModuleGetOptions(xmlChar *optStr)
 }
 
 
-static void regexpModuleFunctionReplace(xmlXPathParserContextPtr ctxt, int nargs)
-{	
+static void regexpModuleFunctionReplace(xmlXPathParserContextPtr ctxt, int nargs) {
 	int opts = 0;
 	if (4 == nargs) {
 		opts = regexpModuleGetOptions(xmlXPathPopString(ctxt));
@@ -74,8 +71,7 @@ static void regexpModuleFunctionReplace(xmlXPathParserContextPtr ctxt, int nargs
 }
 
 
-static void regexpModuleFunctionTest(xmlXPathParserContextPtr ctxt, int nargs)
-{	
+static void regexpModuleFunctionTest(xmlXPathParserContextPtr ctxt, int nargs) {
 	int opts = 0;
 	if (3 == nargs) {
 		opts = regexpModuleGetOptions(xmlXPathPopString(ctxt));
@@ -94,8 +90,7 @@ static void regexpModuleFunctionTest(xmlXPathParserContextPtr ctxt, int nargs)
 }
 
 
-static void regexpModuleFunctionMatch(xmlXPathParserContextPtr ctxt, int nargs)
-{	
+static void regexpModuleFunctionMatch(xmlXPathParserContextPtr ctxt, int nargs) {
 	int opts = 0;
 	if (3 == nargs) {
 		opts = regexpModuleGetOptions(xmlXPathPopString(ctxt));
@@ -134,8 +129,7 @@ static void regexpModuleFunctionMatch(xmlXPathParserContextPtr ctxt, int nargs)
 }
 
 
-static void *regexpModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI)
-{	
+static void *regexpModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI) {
 	xsltRegisterExtFunction(ctxt, (const xmlChar *)"replace", URI,
 							(xmlXPathFunction)regexpModuleFunctionReplace);
 	xsltRegisterExtFunction(ctxt, (const xmlChar *)"test", URI,
@@ -147,18 +141,12 @@ static void *regexpModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI)
 }
 
 
-static void *regexpModuleShutdown(xsltTransformContextPtr ctxt,
-								  const xmlChar *URI,
-								  void *data)
-{
+static void *regexpModuleShutdown(xsltTransformContextPtr ctxt, const xmlChar *URI, void *data) {
 	return NULL;
 }
 
 
-static const xmlChar *getStringValueForAttr(xsltTransformContextPtr ctxt, 
-											xmlNodePtr inputNode, 
-											xmlAttrPtr currAttr)
-{
+static const xmlChar *getStringValueForAttr(xsltTransformContextPtr ctxt, xmlNodePtr inputNode, xmlAttrPtr currAttr) {
 	const xmlNodePtr children = currAttr->children;
 	if (NULL == children) {
 		return NULL;
@@ -169,8 +157,7 @@ static const xmlChar *getStringValueForAttr(xsltTransformContextPtr ctxt,
 }
 
 
-static const xmlChar *evalExprAgainstNode(xsltTransformContextPtr ctxt, xmlNodePtr inputNode, xmlChar *expr)
-{
+static const xmlChar *evalExprAgainstNode(xsltTransformContextPtr ctxt, xmlNodePtr inputNode, xmlChar *expr) {
 	//NSLog(@"inputNode->name: %s", inputNode->name);
 	
 	// get the current transformation's XPath context
@@ -264,7 +251,7 @@ static void handleMessageFired(xsltTransformContextPtr ctxt,
 static void xmlmateModuleElementReportFired(xsltTransformContextPtr ctxt,
 											  xmlNodePtr inputNode,
 											  xmlNodePtr sheetNode,
-											  xsltStylePreCompPtr comp)
+											  xsltStylePreCompPtr comp) 
 {
 	handleMessageFired(ctxt, inputNode, sheetNode, comp, NO);
 }	
@@ -279,8 +266,7 @@ static void xmlmateModuleElementAssertFired(xsltTransformContextPtr ctxt,
 }
 
 
-static void *xmlmateModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI)
-{	
+static void *xmlmateModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI) {
 	xsltRegisterExtElement(ctxt,(const xmlChar *)"assert-fired", URI, 
 						   (xsltTransformFunction)xmlmateModuleElementAssertFired);
 	xsltRegisterExtElement(ctxt,(const xmlChar *)"report-fired", URI, 
@@ -289,10 +275,7 @@ static void *xmlmateModuleInit(xsltTransformContextPtr ctxt, const xmlChar *URI)
 }
 
 
-static void *xmlmateModuleShutdown(xsltTransformContextPtr ctxt,
-									 const xmlChar *URI,
-									 void *data)
-{
+static void *xmlmateModuleShutdown(xsltTransformContextPtr ctxt, const xmlChar *URI, void *data) {
 	return NULL;
 }
 

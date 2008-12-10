@@ -3,11 +3,10 @@
 //  XMLMatePlugIn
 //
 //  Created by Todd Ditchendorf on 1/3/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Todd Ditchendorf. All rights reserved.
 //
 
 #import "XPathObjWrapper.h"
-
 
 @implementation XPathObjWrapper
 
@@ -27,7 +26,6 @@
 	}
 	[super dealloc];
 }
-
 
 
 - (xmlXPathObjectPtr)obj {

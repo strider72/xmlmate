@@ -3,7 +3,7 @@
 //  XMLMatePlugIn
 //
 //  Created by Todd Ditchendorf on 1/3/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Todd Ditchendorf. All rights reserved.
 //
 
 #import "XPathServiceLibxmlImpl.h"
@@ -27,10 +27,7 @@
 - (void)doParseError:(id)errInfo;
 @end
 
-
 @implementation XPathServiceLibxmlImpl
-
-#pragma mark -
 
 - (id)initWithDelegate:(id)d {
 	self = [super init];
@@ -52,10 +49,7 @@
 
 - (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command {
 	NSArray *args = [NSArray arrayWithObjects:XPathString, command, nil];
-	
-	[NSThread detachNewThreadSelector:@selector(doExecuteQuery:)
-							 toTarget:self
-						   withObject:args];
+	[NSThread detachNewThreadSelector:@selector(doExecuteQuery:) toTarget:self withObject:args];
 }
 
 
@@ -64,8 +58,7 @@
 
 static BOOL terminated;
 
-static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error)
-{
+static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error) {
 	if (!terminated) {
 		terminated = YES;
 		[self parseError:nil];
@@ -221,23 +214,15 @@ leave:
 
 - (NSAttributedString *)attributedStringFromError:(NSError *)err {
 	//NSColor *color = [NSColor colorWithDeviceRed:255. green:15. blue:0. alpha:1.];
-	
-	NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor redColor]
-													  forKey:NSForegroundColorAttributeName];
-	
-	NSAttributedString *res = [[[NSAttributedString alloc] initWithString:[err localizedDescription]
-															   attributes:attrs] autorelease];
-	return res;
+	NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+	NSAttributedString *res = [[NSAttributedString alloc] initWithString:[err localizedDescription] attributes:attrs];
+	return [res autorelease];
 }
 
 
 - (void)success:(id)sequence {
-	if (terminated) {
-		return;
-	}
-	[self performSelectorOnMainThread:@selector(doSuccess:)
-						   withObject:sequence
-						waitUntilDone:NO];
+	if (terminated) return;
+	[self performSelectorOnMainThread:@selector(doSuccess:) withObject:sequence waitUntilDone:NO];
 }
 
 
@@ -247,9 +232,7 @@ leave:
 
 
 - (void)error:(id)errInfo {
-	[self performSelectorOnMainThread:@selector(doError:)
-						   withObject:errInfo
-						waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(doError:) withObject:errInfo waitUntilDone:NO];
 }
 
 
@@ -259,15 +242,12 @@ leave:
 
 
 - (void)parseError:(id)errInfo {
-	[self performSelectorOnMainThread:@selector(doParseError:)
-						   withObject:errInfo
-						waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(doParseError:) withObject:errInfo waitUntilDone:NO];
 }
 
 
 - (void)doParseError:(id)errInfo {
 	[delegate xpathService:self parseError:errInfo];	
 }
-
 
 @end

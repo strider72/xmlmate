@@ -19,5 +19,5 @@
 - (void)parse:(XMLParseCommand *)command;
 
 - (int)optionsForCommand:(XMLParseCommand *)command;
-- (NSData* )fetchDataForResource:(NSString *)URLString error:(NSError **)err;
+- (NSData *)fetchDataForResource:(NSString *)URLString error:(NSError **)err;
 @end
