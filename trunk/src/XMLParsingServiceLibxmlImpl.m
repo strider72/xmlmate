@@ -382,8 +382,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-static void myStructuredErrorAdapter(id self, xmlErrorPtr err)
-{
+static void myStructuredErrorAdapter(id self, xmlErrorPtr err) {
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:7];
 	
 	xmlParserCtxtPtr ctxt = err->ctxt;
@@ -392,7 +391,7 @@ static void myStructuredErrorAdapter(id self, xmlErrorPtr err)
     char *file = NULL;
     int line = 0;
     int code = -1;
-    int domain;
+    int domain = 0;
     const xmlChar *name = NULL;
     xmlNodePtr node;
     xmlErrorLevel level;
@@ -414,7 +413,7 @@ static void myStructuredErrorAdapter(id self, xmlErrorPtr err)
     if ((node != NULL) && (node->type == XML_ELEMENT_NODE))
         name = node->name;
 	
-	id obj;
+	id obj = nil;
 	
     /*
      * Maintain the compatibility with the legacy error handling
@@ -434,7 +433,7 @@ static void myStructuredErrorAdapter(id self, xmlErrorPtr err)
 			// is non-null, it's id == 0 || > 1000000
 			//NSLog(@"input->id: %d", input->id);
 			
-			const char *filename;
+			const char *filename = NULL;
             if (input->filename)
 				filename = input->filename;
             else if ((line != 0) && (domain == XML_FROM_PARSER))
@@ -454,7 +453,7 @@ static void myStructuredErrorAdapter(id self, xmlErrorPtr err)
         }
     } else {
 
-		const char *filename;
+		const char *filename = NULL;
 		if (file != NULL)
             filename = file;
         else if ((line != 0) && (domain == XML_FROM_PARSER))
