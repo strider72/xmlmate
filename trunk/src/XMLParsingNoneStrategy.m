@@ -12,7 +12,6 @@
 #import <libxml/valid.h>
 #import <libxml/xinclude.h>
 
-
 @implementation XMLParsingNoneStrategy
 
 - (void)parse:(XMLParseCommand *)command {

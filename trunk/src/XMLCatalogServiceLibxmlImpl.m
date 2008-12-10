@@ -33,7 +33,6 @@ static const char * const typeNames[] = {
 - (void)doError:(NSDictionary *)errInfo;
 @end
 
-
 @implementation XMLCatalogServiceLibxmlImpl
 
 - (id)initWithDelegate:(id)aDelegate environmentVariables:(id)vars {
@@ -151,9 +150,7 @@ static const char * const typeNames[] = {
 
 
 - (void)success:(NSString *)XMLString {
-	[self performSelectorOnMainThread:@selector(doSuccess:)
-						   withObject:XMLString
-						waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(doSuccess:) withObject:XMLString waitUntilDone:NO];
 }
 
 
@@ -163,9 +160,7 @@ static const char * const typeNames[] = {
 
 
 - (void)error:(NSDictionary *)errInfo {
-	[self performSelectorOnMainThread:@selector(doError:)
-						   withObject:errInfo
-						waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(doError:) withObject:errInfo waitUntilDone:NO];
 }
 
 

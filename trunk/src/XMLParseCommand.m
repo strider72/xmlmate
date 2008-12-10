@@ -8,7 +8,6 @@
 
 #import "XMLParseCommand.h"
 
-
 @implementation XMLParseCommand
 
 - (id)init {

@@ -12,7 +12,6 @@
 #import <libxml/relaxng.h>
 #import <libxml/xinclude.h>
 
-
 @implementation XMLParsingRNGStrategy
 
 - (void)parse:(XMLParseCommand *)command {

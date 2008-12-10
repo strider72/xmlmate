@@ -12,7 +12,6 @@
 #import <libxml/parser.h>
 #import <libxml/xmlerror.h>
 
-
 void myGenericErrorHandler(id self, const char *msg, ...);
 
 @class XMLParsingStrategy;

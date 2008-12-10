@@ -24,7 +24,6 @@ typedef enum {
 	CheckboxTagMergeCDATA
 } CheckboxTag;
 
-
 @interface OakTextView : NSObject {}
 @end
 
@@ -67,6 +66,7 @@ typedef enum {
 @end
 
 @implementation NSString (HTMLSupport)
+
 - (NSString *)stringByReplacingHTMLEntities {
 	NSMutableString *mstr = [NSMutableString stringWithString:self];
 	[mstr replaceOccurrencesOfString:@"&"
@@ -84,6 +84,7 @@ typedef enum {
 
 	return [NSString stringWithString:mstr];
 }
+
 @end
 
 @interface DOMElement (IEExtentions)
@@ -104,9 +105,7 @@ typedef enum {
 - (NSArray *)contextMenuItems;
 - (void)setContextMenuItems:(NSArray *)newItems;
 - (NSString *)HTMLStringForErrorInfo:(NSDictionary *)info;
-- (void)appendResultItemWithClassName:(NSString *)className 
-							innerHTML:(NSString *)innerHTML 
-						   attributes:(NSDictionary *)attrs;
+- (void)appendResultItemWithClassName:(NSString *)className innerHTML:(NSString *)innerHTML attributes:(NSDictionary *)attrs;
 - (void)playSuccessSound;
 - (void)playErrorSound;
 - (void)playWarningSound;
@@ -123,8 +122,6 @@ typedef enum {
 @end
 
 @implementation XMLMateController
-
-#pragma mark -
 
 - (id)init {
 	self = [super initWithWindowNibName:@"XMLMatePalette"];
@@ -679,8 +676,7 @@ typedef enum {
 #pragma mark -
 #pragma mark WebScripting
 
-+ (NSString *)webScriptNameForSelector:(SEL)sel
-{
++ (NSString *)webScriptNameForSelector:(SEL)sel {
 	if (@selector(errorItemClicked:filename:) == sel) {
 		return @"errorItemClicked";
 	} else {
@@ -689,14 +685,12 @@ typedef enum {
 }
 
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
-{
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel {
 	return (nil == [self webScriptNameForSelector:sel]);
 }
 
 
-+ (BOOL)isKeyExcludedFromWebScript:(const char *)name
-{
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
 	return YES;
 }
 
@@ -1065,8 +1059,7 @@ typedef enum {
 }
 
 
-- (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)uncompletedString
-{
+- (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)uncompletedString {
 	if (aComboBox == schemaURLComboBox) {
 		NSEnumerator *e = [recentSchemaURLStrings objectEnumerator];
 		NSString *URLString = nil;
@@ -1088,8 +1081,7 @@ typedef enum {
 }
 
 
-- (unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)aString
-{
+- (unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)aString {
 	NSEnumerator *e = [recentSchemaURLStrings objectEnumerator];
 	NSString *str = nil;
 	int i = 0;

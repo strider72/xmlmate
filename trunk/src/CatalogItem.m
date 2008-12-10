@@ -8,7 +8,6 @@
 
 #import "CatalogItem.h"
 
-
 @implementation CatalogItem
 
 - (id)initWithCoder:(NSCoder *)coder {

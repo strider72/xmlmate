@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "XMLParsingStrategy.h"
 
-
 @interface XMLParsingRNGStrategy : XMLParsingStrategy {
 
 }

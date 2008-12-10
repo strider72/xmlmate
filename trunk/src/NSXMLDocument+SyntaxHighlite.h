@@ -3,7 +3,7 @@
 //  XMLMatePlugIn
 //
 //  Created by Todd Ditchendorf on 1/6/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Todd Ditchendorf. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -15,7 +15,6 @@
 - (NSAttributedString *)highlitedAttributedStringForPIWithSelectedXPaths:(NSArray *)xpaths;
 - (NSAttributedString *)highlitedAttributedStringForTextWithSelectedXPaths:(NSArray *)xpaths;
 @end
-
 
 @interface NSXMLElement (SyntaxHighlite)
 - (NSString *)startTagXMLString;

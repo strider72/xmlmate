@@ -28,7 +28,6 @@ static NSString * const RecentXPathStrings			= @"recentXPathStrings";
 static NSString * const PrefsFileName				= @"XMLMatePlugInPrefs";
 static NSString * const PrefsFileExt				= @"plist";
 
-
 @interface XMLMatePlugIn (Private)
 - (void)initController;
 - (void)determineFloatingPanelStatus;
@@ -37,8 +36,6 @@ static NSString * const PrefsFileExt				= @"plist";
 @end
 
 @implementation XMLMatePlugIn
-
-#pragma mark -
 
 + (void)initialize {
 	//NSLog(@"registering defaults");
@@ -53,9 +50,6 @@ static NSString * const PrefsFileExt				= @"plist";
 	return [NSBundle bundleWithIdentifier:XMLMateBundleIdentifier];
 }
 
-
-#pragma mark -
-#pragma mark TMPlugIn
 
 - (id)initWithPlugInController:(id <TMPlugInController>)aController {
 	self = [super init];

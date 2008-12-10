@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "XMLParsingService.h"
 
-
 @interface XMLParseCommand : NSObject <NSCoding> {
 	NSString *sourceURLString;
 	XMLValidationType validationType;
@@ -58,5 +57,4 @@
 
 - (BOOL)processXIncludes;
 - (void)setProcessXIncludes:(BOOL)yn;
-
 @end
