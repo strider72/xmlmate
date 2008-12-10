@@ -11,7 +11,7 @@
 @class XMLParseCommand;
 
 @protocol XPathService <NSObject>
-- (id)initWithDelegate:(id)aDelegate;
+- (id)initWithDelegate:(id)d;
 - (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command;
 @end
 

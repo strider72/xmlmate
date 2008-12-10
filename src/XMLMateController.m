@@ -407,10 +407,10 @@ typedef enum {
 - (NSArray *)contextMenuItems {
 	@synchronized (self) {
 		if (!contextMenuItems) {
-			NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Clear"
-														   action:@selector(clear:)
-													keyEquivalent:@""] autorelease];
+            NSString *title = NSLocalizedString(@"Clear", @"");
+			NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:@selector(clear:) keyEquivalent:@""];
 			NSArray *a = [NSArray arrayWithObject:item];
+            [item release];
 			[self setContextMenuItems:a];
 		}
 	}
@@ -468,9 +468,7 @@ typedef enum {
 }
 
 
-- (void)appendResultItemWithClassName:(NSString *)className 
-							innerHTML:(NSString *)innerHTML 
-						   attributes:(NSDictionary *)attrs {	
+- (void)appendResultItemWithClassName:(NSString *)className innerHTML:(NSString *)innerHTML attributes:(NSDictionary *)attrs {
 	DOMDocument *document = [[parseResultsWebView mainFrame] DOMDocument];
 	DOMElement *li = [document createElement:@"li"];
 	[li setClassName:className];
@@ -587,7 +585,7 @@ typedef enum {
 	} else {
 		delay = .5;
 		
-		NSTask *task = [[NSTask alloc] init];
+		NSTask *task = [[[NSTask alloc] init] autorelease];
 		
 		if (!filename || [filename isEqualToString:@"(null)"]) {
 			filename = [command schemaURLString];
@@ -1025,23 +1023,20 @@ typedef enum {
 #pragma mark -
 #pragma mark WebUIDelegate
 
-- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems 
-{
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems {
 	return [self contextMenuItems]; 
 }
 
 
-- (unsigned)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo 
-{
+- (unsigned)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo {
 	return WebDragDestinationActionLoad;
 }
 
 
-- (void)webView:(WebView *)sender willPerformDragDestinationAction:(WebDragDestinationAction)action forDraggingInfo:(id <NSDraggingInfo>)draggingInfo 
-{
+- (void)webView:(WebView *)sender willPerformDragDestinationAction:(WebDragDestinationAction)action forDraggingInfo:(id <NSDraggingInfo>)draggingInfo {
 	NSPasteboard *pboard = [draggingInfo draggingPasteboard];
-	int index;
-	if ((index = [[pboard types] indexOfObject:NSFilenamesPboardType]) != NSNotFound) {
+	int index = [[pboard types] indexOfObject:NSFilenamesPboardType];
+	if (NSNotFound != index) {
 		NSString *filename = [[pboard propertyListForType:NSFilenamesPboardType] objectAtIndex:0];
 		[command setSchemaURLString:filename];
 		[self clear:self];

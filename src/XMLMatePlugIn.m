@@ -77,20 +77,20 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark Public
 
 - (void)installMenuItems {
-	id windowMenu = [[[NSApp mainMenu] itemWithTitle:@"Window"] submenu];
+    NSString *title = NSLocalizedString(@"Window", @"");
+	id windowMenu = [[[NSApp mainMenu] itemWithTitle:title] submenu];
 	
 	if (windowMenu) {
 		int index = 0;
 		NSArray *items = [windowMenu itemArray];
 		for (int separators = 0; index != [items count] && separators != 2; index++)
 			separators += [[items objectAtIndex:index] isSeparatorItem] ? 1 : 0;
-		
-		NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Show XMLMate Palette" 
-														  action:@selector(showPalette:) 
-												   keyEquivalent:@""];
-		
+        
+        NSString *title = NSLocalizedString(@"Show XMLMate Palette", @"");
+		NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(showPalette:) keyEquivalent:@""];
 		[menuItem setTarget:self];
 		[windowMenu insertItem:menuItem atIndex:index ? index-1 : 0];
+        [menuItem release];
 	}
 }
 

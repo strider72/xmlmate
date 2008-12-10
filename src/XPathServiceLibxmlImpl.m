@@ -32,12 +32,18 @@
 
 #pragma mark -
 
-- (id)initWithDelegate:(id)aDelegate {
+- (id)initWithDelegate:(id)d {
 	self = [super init];
 	if (self != nil) {
-		delegate = aDelegate;
+		delegate = d;
 	}
 	return self;
+}
+
+
+- (void)dealloc {
+    delegate = nil;
+    [super dealloc];
 }
 
 
@@ -180,15 +186,13 @@ leave:
 }
 
 
-- (id)resultsForExpr:(NSString *)xpathExpr XMLString:(NSString *)XMLString error:(NSError **)err {
-	NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:XMLString
-														   options:NSXMLNodePreserveAll
-															 error:nil] autorelease];
+- (id)resultsForExpr:(NSString *)xpathExpr XMLString:(NSString *)XMLString error:(NSError **)outError {
+	NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:XMLString options:NSXMLNodePreserveAll error:outError] autorelease];
 	
 	//	NSArray *nodes = [doc nodesForXPath:xpathExpr error:err];
-	NSArray *nodes = [doc objectsForXQuery:xpathExpr error:err];
-	
-	if (*err) {
+	NSArray *nodes = [doc objectsForXQuery:xpathExpr error:outError];
+    
+	if (*outError) {
 		return nil;
 	}
 	
