@@ -15,8 +15,7 @@
 
 @implementation XMLParsingRNGStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingXSDStrategy parse:");
 	
 	xmlRelaxNGParserCtxtPtr parserCtxt	= NULL;

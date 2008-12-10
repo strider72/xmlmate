@@ -36,8 +36,7 @@ static const char * const typeNames[] = {
 
 @implementation XMLCatalogServiceLibxmlImpl
 
-- (id)initWithDelegate:(id)aDelegate environmentVariables:(id)vars;
-{
+- (id)initWithDelegate:(id)aDelegate environmentVariables:(id)vars {
 	self = [super init];
 	if (self != nil) {
 		delegate = aDelegate;
@@ -49,8 +48,7 @@ static const char * const typeNames[] = {
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	[environmentVariables release];
 	[super dealloc];
 }
@@ -59,8 +57,7 @@ static const char * const typeNames[] = {
 #pragma mark -
 #pragma mark XMLCatalogService
 
-- (void)setPrefer:(int)n;
-{
+- (void)setPrefer:(int)n {
 	//NSLog(@"setting prefer: %d", n);
 	@synchronized(self) {
 		xmlCatalogSetDefaultPrefer(1);
@@ -68,8 +65,7 @@ static const char * const typeNames[] = {
 }
 
 
-- (void)putCatalogContents:(NSArray *)catalogContents;
-{
+- (void)putCatalogContents:(NSArray *)catalogContents {
 	[NSThread detachNewThreadSelector:@selector(doPutCatalogContents:)
 							 toTarget:self
 						   withObject:catalogContents];
@@ -79,8 +75,7 @@ static const char * const typeNames[] = {
 #pragma mark -
 #pragma mark Private
 
-- (void)doPutCatalogContents:(NSArray *)catalogContents;
-{
+- (void)doPutCatalogContents:(NSArray *)catalogContents {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	@synchronized(self) {
@@ -131,8 +126,7 @@ static const char * const typeNames[] = {
 }
 
 
-- (NSString *)writeCatalogToDiskAndLoad;
-{
+- (NSString *)writeCatalogToDiskAndLoad {
 	NSString *path = [self pathForXMLFileNamed:@"catalog"];
 	FILE *f = fopen([path UTF8String], "w");
 	
@@ -149,38 +143,33 @@ static const char * const typeNames[] = {
 }
 
 
-- (NSString *)pathForXMLFileNamed:(NSString *)name;
-{
+- (NSString *)pathForXMLFileNamed:(NSString *)name {
 	NSString *path = [[XMLMatePlugIn bundle] resourcePath];
 	path = [[path stringByAppendingPathComponent:name] stringByAppendingPathExtension:@"xml"];
 	return path;
 }
 
 
-- (void)success:(NSString *)XMLString;
-{
+- (void)success:(NSString *)XMLString {
 	[self performSelectorOnMainThread:@selector(doSuccess:)
 						   withObject:XMLString
 						waitUntilDone:NO];
 }
 
 
-- (void)doSuccess:(NSString *)XMLString;
-{
+- (void)doSuccess:(NSString *)XMLString {
 	[delegate catalogService:self didUpdate:XMLString];
 }
 
 
-- (void)error:(NSDictionary *)errInfo;
-{
+- (void)error:(NSDictionary *)errInfo {
 	[self performSelectorOnMainThread:@selector(doError:)
 						   withObject:errInfo
 						waitUntilDone:NO];
 }
 
 
-- (void)doError:(NSDictionary *)errInfo;
-{
+- (void)doError:(NSDictionary *)errInfo {
 	[delegate catalogService:self didError:errInfo];	
 }
 

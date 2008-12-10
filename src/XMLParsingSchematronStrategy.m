@@ -305,8 +305,7 @@ static void *xmlmateModuleShutdown(xsltTransformContextPtr ctxt,
 
 #pragma mark -
 
-- (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService;
-{
+- (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService {
 	self = [super initWithService:aService];
 	if (self != nil) {
 		[self loadMetaStylesheet];
@@ -316,8 +315,7 @@ static void *xmlmateModuleShutdown(xsltTransformContextPtr ctxt,
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	xsltFreeStylesheet(metaStylesheet);
 	xsltCleanupGlobals();
 	instance = nil;
@@ -328,8 +326,7 @@ static void *xmlmateModuleShutdown(xsltTransformContextPtr ctxt,
 #pragma mark -
 #pragma mark Strategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingSchematronStrategy parse:");
 	
 	xmlDocPtr schematron				 = NULL;
@@ -441,8 +438,7 @@ leave:
 #pragma mark -
 #pragma mark Private
 
-- (void)loadMetaStylesheet;
-{
+- (void)loadMetaStylesheet {
 	xsltRegisterExtModule((const xmlChar *)"http://exslt.org/regular-expressions",
 						  (xsltExtInitFunction)regexpModuleInit,
 						  (xsltExtShutdownFunction)regexpModuleShutdown);
@@ -464,14 +460,12 @@ leave:
 }
 
 
-- (void)assertFired:(NSDictionary *)info;
-{
+- (void)assertFired:(NSDictionary *)info {
 	[service strategyAssertFired:info];
 }
 
 
-- (void)reportFired:(NSDictionary *)info;
-{
+- (void)reportFired:(NSDictionary *)info {
 	[service strategyReportFired:info];
 }
 

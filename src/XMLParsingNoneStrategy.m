@@ -15,8 +15,7 @@
 
 @implementation XMLParsingNoneStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingNoneStrategy parse:");
 
 	[service strategyWillParse:command];

@@ -67,8 +67,7 @@ typedef enum {
 @end
 
 @implementation NSString (HTMLSupport)
-- (NSString *)stringByReplacingHTMLEntities;
-{
+- (NSString *)stringByReplacingHTMLEntities {
 	NSMutableString *mstr = [NSMutableString stringWithString:self];
 	[mstr replaceOccurrencesOfString:@"&"
 						  withString:@"&amp;"
@@ -127,14 +126,13 @@ typedef enum {
 
 #pragma mark -
 
-- (id)init;
-{
+- (id)init {
 	self = [super initWithWindowNibName:@"XMLMatePalette"];
 	if (self != nil) {
 		[self setPlaySounds:YES];
 		[self setPreferedCatalogItemType:2];
 		parsingService = [[XMLParsingServiceLibxmlImpl alloc] initWithDelegate:self];
-		xpathService   = [[XPathServiceLibxmlImpl   alloc] initWithDelegate:self];
+		xpathService = [[XPathServiceLibxmlImpl alloc] initWithDelegate:self];
 		//id vars = [OakTextView defaultEnvironmentVariables];
 		id vars = [[self currentOakTextView] environmentVariables];
 		//NSLog(@"defaultEnvironmentVariables: %@",[OakTextView defaultEnvironmentVariables]);
@@ -145,8 +143,7 @@ typedef enum {
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	[parsingService release];
 	[catalogService release];
 	[xpathService release];
@@ -166,8 +163,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSWindowcontroller
 
-- (void)windowDidLoad;
-{
+- (void)windowDidLoad {
 	[self setupFonts];
 	[self loadParseResultsDocument];
 	[self setSchemaURLComboBoxPlaceHolderString];
@@ -179,14 +175,13 @@ typedef enum {
 #pragma mark -
 #pragma mark Actions
 
-- (void)showWindow:(id)sender;
-{
+- (void)showWindow:(id)sender {
 	[super showWindow:sender];
 	[catalogService putCatalogContents:catalogItems];
 }
 
-- (IBAction)parameterWasChanged:(id)sender;
-{
+
+- (IBAction)parameterWasChanged:(id)sender {
 	//NSLog(@"parameterWasChanged: %i boolval: %i", [sender tag], [sender state]);
 	
 	BOOL checked = (NSOnState == [sender state]);
@@ -213,8 +208,7 @@ typedef enum {
 }
 
 
-- (IBAction)validationTypeWasChanged:(id)sender;
-{
+- (IBAction)validationTypeWasChanged:(id)sender {
 	//XMLValidationType type = [command validationType];
 	
 	[command setSchemaURLString:nil];
@@ -223,8 +217,7 @@ typedef enum {
 }
 
 
-- (IBAction)browse:(id)sender;
-{
+- (IBAction)browse:(id)sender {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
 	const int res = [panel runModalForDirectory:nil file:nil];
 	if (NSFileHandlingPanelOKButton == res) {
@@ -233,8 +226,7 @@ typedef enum {
 }
 
 
-- (IBAction)parse:(id)sender;
-{
+- (IBAction)parse:(id)sender {
 	[self clear:self];
 	
 	NSString *sourceURLString = [[NSApp mainWindow] representedFilename];
@@ -278,8 +270,7 @@ typedef enum {
 }
 
 
-- (IBAction)clear:(id)sender;
-{
+- (IBAction)clear:(id)sender {
 	DOMDocument *document = [[parseResultsWebView mainFrame] DOMDocument];
 	DOMElement *ul = [document getElementById:@"result-list"];
 	[ul setInnerHTML:@""];
@@ -288,8 +279,7 @@ typedef enum {
 }
 
 
-- (IBAction)executeQuery:(id)sender;
-{
+- (IBAction)executeQuery:(id)sender {
 	[self setQueryResultLength:0];
 	[self setQueryResultNodes:nil];
 	[self setQueryResultString:nil];
@@ -319,8 +309,7 @@ typedef enum {
 #pragma mark -
 #pragma mark Private
 
-- (void)setupFonts;
-{
+- (void)setupFonts {
 	NSFont *monaco = [NSFont fontWithName:@"Monaco" size:9.];
 	[sourceXMLTextView setFont:monaco];
 	[catalogXMLTextView setFont:monaco];
@@ -328,8 +317,7 @@ typedef enum {
 }
 
 
-- (void)loadParseResultsDocument;
-{
+- (void)loadParseResultsDocument {
 	NSBundle *bundle = [XMLMatePlugIn bundle];
 	NSString *path	 = [bundle pathForResource:@"results" ofType:@"html"];
 
@@ -338,13 +326,15 @@ typedef enum {
 }
 
 
-- (void)setSchemaURLComboBoxPlaceHolderString;
-{
+- (void)setSchemaURLComboBoxPlaceHolderString {
 	XMLValidationType type = [command validationType];
 
 	NSString *str = nil;
 	
 	switch(type) {
+		case XMLValidationTypeNone:
+			str = @"";
+			break;
 		case XMLValidationTypeDTD:
 			str = @"Auto-Detect DTD";
 			break;
@@ -360,8 +350,7 @@ typedef enum {
 }
 
 
-- (void)registerForNotifications;
-{
+- (void)registerForNotifications {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self
 		   selector:@selector(textDidEndEditing:) 
@@ -380,8 +369,7 @@ typedef enum {
 }
 
 
-- (void)setupCatalog;
-{
+- (void)setupCatalog {
 	NSPopUpButtonCell *pCell = [[catalogTable tableColumnWithIdentifier:@"type"] dataCell];
 	[pCell setFont:[NSFont controlContentFontOfSize:10.]];
 	[pCell setMenu:catalogItemTypeMenu];
@@ -390,15 +378,13 @@ typedef enum {
 }
 
 
-- (void)updateCatalog;
-{
+- (void)updateCatalog {
 	[self setBusy:YES];
 	[catalogService putCatalogContents:catalogItems];
 }
 
 
-- (BOOL)addRecentSchemaURLString:(NSString *)str;
-{
+- (BOOL)addRecentSchemaURLString:(NSString *)str {
 	BOOL res = NO;
 	if (![recentSchemaURLStrings containsObject:str]) {
 		res = YES;
@@ -408,8 +394,7 @@ typedef enum {
 }
 
 
-- (BOOL)addRecentXPathString:(NSString *)str;
-{
+- (BOOL)addRecentXPathString:(NSString *)str {
 	BOOL res = NO;
 	if (![recentXPathStrings containsObject:str]) {
 		res = YES;
@@ -419,8 +404,7 @@ typedef enum {
 }
 
 
-- (NSArray *)contextMenuItems;
-{
+- (NSArray *)contextMenuItems {
 	@synchronized (self) {
 		if (!contextMenuItems) {
 			NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Clear"
@@ -434,8 +418,7 @@ typedef enum {
 }
 
 
-- (void)setContextMenuItems:(NSArray *)newItems;
-{
+- (void)setContextMenuItems:(NSArray *)newItems {
 	if (contextMenuItems != newItems) {
 		[contextMenuItems autorelease];
 		contextMenuItems = [newItems retain];
@@ -443,8 +426,7 @@ typedef enum {
 }
 
 
-- (NSString *)HTMLStringForErrorInfo:(NSDictionary *)info;
-{
+- (NSString *)HTMLStringForErrorInfo:(NSDictionary *)info {
 	NSMutableString *res = [NSMutableString string];
 	
 	[res appendString:[NSString stringWithFormat:@"%@ %@: ", 
@@ -488,8 +470,7 @@ typedef enum {
 
 - (void)appendResultItemWithClassName:(NSString *)className 
 							innerHTML:(NSString *)innerHTML 
-						   attributes:(NSDictionary *)attrs;
-{	
+						   attributes:(NSDictionary *)attrs {	
 	DOMDocument *document = [[parseResultsWebView mainFrame] DOMDocument];
 	DOMElement *li = [document createElement:@"li"];
 	[li setClassName:className];
@@ -505,11 +486,13 @@ typedef enum {
 }
 
 
-- (NSString *)nameForValidationType:(XMLValidationType)type;
-{
+- (NSString *)nameForValidationType:(XMLValidationType)type {
 	NSString *res = nil;
 	
 	switch ([command validationType]) {
+		case XMLValidationTypeNone:
+			res = @"";
+			break;
 		case XMLValidationTypeDTD:
 			res = @"DTD";
 			break;
@@ -531,34 +514,29 @@ typedef enum {
 }
 
 
-- (void)playSuccessSound;
-{
+- (void)playSuccessSound {
 	[self playSoundNamed:@"Hero"];
 }
 
 
-- (void)playErrorSound;
-{
+- (void)playErrorSound {
 	[self playSoundNamed:@"Basso"];
 }
 
 
-- (void)playWarningSound;
-{
+- (void)playWarningSound {
 	[self playSoundNamed:@"Bottle"];
 }
 
 
-- (void)playSoundNamed:(NSString *)name;
-{
+- (void)playSoundNamed:(NSString *)name {
 	if (playSounds) {
 		[[NSSound soundNamed:name] play];
 	}
 }
 
 
-- (void)doProblemItemWithClassName:(NSString *)className error:(NSDictionary *)info;
-{
+- (void)doProblemItemWithClassName:(NSString *)className error:(NSDictionary *)info {
 	//NSLog(@"info: %@", info);
 	
 	NSString *msg = [self HTMLStringForErrorInfo:info];
@@ -577,8 +555,7 @@ typedef enum {
 }
 
 
-- (void)changeSizeForSettings;
-{
+- (void)changeSizeForSettings {
 	NSPoint p = [bottomView bounds].origin;
 	p.y = (showSettings) ? 60. : 0.;
 	[bottomView setBoundsOrigin:p];
@@ -586,8 +563,7 @@ typedef enum {
 }
 
 
-- (NSWindow *)findOpenTextMateWindowForFilename:(NSString *)filename;
-{
+- (NSWindow *)findOpenTextMateWindowForFilename:(NSString *)filename {
 	NSWindow *win = nil;
 	NSEnumerator *e = [[NSApp windows] objectEnumerator];
 	while (win = [e nextObject]) {
@@ -599,8 +575,7 @@ typedef enum {
 }
 
 
-- (void)errorItemClicked:(float)line filename:(NSString *)filename;
-{
+- (void)errorItemClicked:(float)line filename:(NSString *)filename {
 	//NSLog(@"errorItemClicked: line: %f, filename: %@", line, filename);
 
 	NSWindow *win = [self findOpenTextMateWindowForFilename:filename];
@@ -631,8 +606,7 @@ typedef enum {
 }
 
 
-- (void)selectTextInCurrentOakTextView:(NSNumber *)lineObj;
-{	
+- (void)selectTextInCurrentOakTextView:(NSNumber *)lineObj {	
 	OakTextView *textView = [self currentOakTextView];
 	[textView goToLineNumber:lineObj];
 	[textView selectToLine:lineObj andColumn:[NSNumber numberWithFloat:1000.]];
@@ -643,8 +617,7 @@ typedef enum {
 }
 
 
-- (OakTextView *)currentOakTextView;
-{
+- (OakTextView *)currentOakTextView {
 	NSWindow *win = [NSApp mainWindow];
 	if (!win) {
 		return nil;
@@ -674,8 +647,7 @@ typedef enum {
 }
 
 
-- (id)firstSubviewOfView:(NSView *)superview kindOfClass:(Class)c;
-{
+- (id)firstSubviewOfView:(NSView *)superview kindOfClass:(Class)c {
 	id view = nil;
 	
 	NSEnumerator *e = [[superview subviews] objectEnumerator];
@@ -690,15 +662,13 @@ typedef enum {
 }
 
 
-- (void)fetchSourceXMLDataFromOakTextView;
-{
+- (void)fetchSourceXMLDataFromOakTextView {
 	NSData *sourceXMLData = [[[self currentOakTextView] stringValue] dataUsingEncoding:NSUTF8StringEncoding];
 	[command setSourceXMLData:sourceXMLData];
 }
 
 
-- (void)appendQueryConsoleString:(NSString *)str;
-{
+- (void)appendQueryConsoleString:(NSString *)str {
 	@synchronized (self) {
 		if (!queryConsoleString) {
 			[self setQueryConsoleString:[NSMutableString string]];
@@ -736,15 +706,13 @@ typedef enum {
 #pragma mark -
 #pragma mark XMLCatalogServiceDelegate
 
-- (void)catalogService:(id <XMLCatalogService>)service didUpdate:(NSString *)XMLString;
-{
+- (void)catalogService:(id <XMLCatalogService>)service didUpdate:(NSString *)XMLString {
 	[self setCatalogXMLString:XMLString];
 	[self setBusy:NO];
 }
 
 
-- (void)catalogService:(id <XMLCatalogService>)service didError:(NSDictionary *)errInfo;
-{
+- (void)catalogService:(id <XMLCatalogService>)service didError:(NSDictionary *)errInfo {
 	//NSLog(@"error!!!!!!!!!");
 	[self setBusy:NO];
 }
@@ -753,8 +721,7 @@ typedef enum {
 #pragma mark -
 #pragma mark XMLParsingServiceDelegate
 
-- (void)parsingService:(id <XMLParsingService>)service willParse:(XMLParseCommand *)c;
-{
+- (void)parsingService:(id <XMLParsingService>)service willParse:(XMLParseCommand *)c {
 	//NSLog(@"controller willParse:");
 	
 	if (![command verbose]) {
@@ -771,6 +738,8 @@ typedef enum {
 	if (checkedValidity) {
 		msg = [NSMutableString stringWithFormat:@"Checking <tt>%@</tt> for validity against ", filename];
 		switch ([command validationType]) {
+            case XMLValidationTypeNone:
+                break;
 			case XMLValidationTypeDTD:
 				if ([schemaFilename length]) {
 					[msg appendFormat:@"user-specified DTD: <tt>%@</tt>", schemaFilename];
@@ -804,8 +773,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service didParse:(XMLParseCommand *)c;
-{
+- (void)parsingService:(id <XMLParsingService>)service didParse:(XMLParseCommand *)c {
 	NSString *filename = [[command sourceURLString] lastPathComponent];
 	
 	BOOL checkedValidity = (XMLValidationTypeNone != [command validationType]);
@@ -831,8 +799,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service willFetchSchema:(NSString *)schemaURLString;
-{
+- (void)parsingService:(id <XMLParsingService>)service willFetchSchema:(NSString *)schemaURLString {
 	//NSLog(@"controller willFetchSchema:");
 	
 	if (![command verbose]) {
@@ -849,8 +816,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service didFetchSchema:(NSString *)schemaURLString;
-{
+- (void)parsingService:(id <XMLParsingService>)service didFetchSchema:(NSString *)schemaURLString {
 	//NSLog(@"controller didFetchSchema:");
 	
 	if (![command verbose]) {
@@ -867,8 +833,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service willParseSchema:(NSString *)schemaURLString;
-{
+- (void)parsingService:(id <XMLParsingService>)service willParseSchema:(NSString *)schemaURLString {
 	//NSLog(@"controller willParseSchema:");
 	
 	if (![command verbose]) {
@@ -885,8 +850,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service didParseSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration;
-{
+- (void)parsingService:(id <XMLParsingService>)service didParseSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration {
 	//NSLog(@"controller didParseSchema:");
 	
 	if (![command verbose]) {
@@ -904,8 +868,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service willFetchSource:(NSString *)sourceURLString;
-{
+- (void)parsingService:(id <XMLParsingService>)service willFetchSource:(NSString *)sourceURLString {
 	//NSLog(@"controller willFetchSource:");
 	
 	if (![command verbose]) {
@@ -920,8 +883,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service didFetchSource:(NSString *)sourceURLString duration:(NSTimeInterval)duration;
-{
+- (void)parsingService:(id <XMLParsingService>)service didFetchSource:(NSString *)sourceURLString duration:(NSTimeInterval)duration {
 	//NSLog(@"controller didFetchSource:");
 	
 	if (![command verbose]) {
@@ -936,8 +898,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service willParseSource:(NSString *)sourceURLString;
-{
+- (void)parsingService:(id <XMLParsingService>)service willParseSource:(NSString *)sourceURLString {
 	//NSLog(@"controller willParseSource:");
 	
 	if (![command verbose]) {
@@ -952,8 +913,7 @@ typedef enum {
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service didParseSource:(NSString *)sourceURLString sourceXMLString:(NSString *)data duration:(NSTimeInterval)duration;
-{
+- (void)parsingService:(id <XMLParsingService>)service didParseSource:(NSString *)sourceURLString sourceXMLString:(NSString *)data duration:(NSTimeInterval)duration {
 	//NSLog(@"controller didParseSource:");
 
 	[self setSourceXMLString:data];
@@ -973,24 +933,21 @@ typedef enum {
 #pragma mark -
 #pragma mark ErrorHandler
 
-- (void)parsingService:(id <XMLParsingService>)service warning:(NSDictionary *)info;
-{
+- (void)parsingService:(id <XMLParsingService>)service warning:(NSDictionary *)info {
 	errorCount++;
 	[self doProblemItemWithClassName:@"warning-item" error:info];
 	[self playWarningSound];
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service error:(NSDictionary *)info;
-{
+- (void)parsingService:(id <XMLParsingService>)service error:(NSDictionary *)info {
 	errorCount++;
 	[self doProblemItemWithClassName:@"error-item" error:info];
 	[self playErrorSound];
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service fatalError:(NSDictionary *)info;
-{
+- (void)parsingService:(id <XMLParsingService>)service fatalError:(NSDictionary *)info {
 	errorCount++;
 	[self doProblemItemWithClassName:@"error-item" error:info];
 	[self playErrorSound];
@@ -1000,16 +957,14 @@ typedef enum {
 #pragma mark -
 #pragma mark SchematronMessageHandler
 
-- (void)parsingService:(id <XMLParsingService>)service assertFired:(NSDictionary *)info;
-{
+- (void)parsingService:(id <XMLParsingService>)service assertFired:(NSDictionary *)info {
 	errorCount++;
 	[self doProblemItemWithClassName:@"assert-item" error:info];
 	[self playErrorSound];
 }
 
 
-- (void)parsingService:(id <XMLParsingService>)service reportFired:(NSDictionary *)info;
-{
+- (void)parsingService:(id <XMLParsingService>)service reportFired:(NSDictionary *)info {
 	[self doProblemItemWithClassName:@"report-item" error:info];
 }
 
@@ -1017,8 +972,7 @@ typedef enum {
 #pragma mark -
 #pragma mark XPathServiceDelegate
 
-- (void)xpathService:(id <XPathService>)service didFinish:(id)result;
-{
+- (void)xpathService:(id <XPathService>)service didFinish:(id)result {
 	[self setQueryResultString:[result objectForKey:@"highlitedAttributedString"]];	
 	[self setQueryResultNodes:[result objectForKey:@"nodes"]];	
 	[self setQueryResultLength:[queryResultNodes count]];	
@@ -1028,14 +982,12 @@ typedef enum {
 }
 
 
-- (void)xpathService:(id <XPathService>)service info:(id)info;
-{
+- (void)xpathService:(id <XPathService>)service info:(id)info {
 	[self appendQueryConsoleString:info];	
 }
 
 
-- (void)xpathService:(id <XPathService>)service error:(id)error;
-{
+- (void)xpathService:(id <XPathService>)service error:(id)error {
 	[self setQueryResultString:error];
 	[self playErrorSound];
 	[[self window] makeFirstResponder:xpathComboBox];
@@ -1043,8 +995,7 @@ typedef enum {
 }
 
 
-- (void)xpathService:(id <XPathService>)service parseError:(id)error;
-{
+- (void)xpathService:(id <XPathService>)service parseError:(id)error {
 	[tabView selectFirstTabViewItem:self];
 	[self parse:self];
 }
@@ -1053,8 +1004,7 @@ typedef enum {
 #pragma mark -
 #pragma mark WebFrameLoadDelegate
 
-- (void)webView:(WebView *)sender windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject;
-{
+- (void)webView:(WebView *)sender windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject {
 	[windowScriptObject setValue:self forKey:@"PlugIn"];
 }
 
@@ -1062,8 +1012,7 @@ typedef enum {
 #pragma mark -
 #pragma mark WebResourceLoadDelegate
 
-- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource;
-{
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource {
 	NSString *absURLStr = [[request URL] absoluteString];
 	NSRange r = [absURLStr rangeOfString:@"/TextMate/PlugIns/XMLMate.tmplugin/Contents/Resources/"];
 	if (NSNotFound == r.location) {
@@ -1103,8 +1052,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSComboBoxDataSource
 
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index;
-{
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index {
 	if (aComboBox == schemaURLComboBox) {
 		return [recentSchemaURLStrings objectAtIndex:index];
 	} else {
@@ -1113,8 +1061,7 @@ typedef enum {
 }
 
 
-- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
-{
+- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
 	if (aComboBox == schemaURLComboBox) {
 		return [recentSchemaURLStrings count];
 	} else {
@@ -1164,8 +1111,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSTabViewDelegate
 /*
-- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem;
-{
+- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem {
 	if (![[tabViewItem identifier] isEqualToString:@"parser"]) {
 		return;
 	}
@@ -1177,8 +1123,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSTextViewDelegate
 
-- (BOOL)textView:(NSTextView *)aTextView shouldChangeTextInRange:(NSRange)affectedCharRange replacementString:(NSString *)replacementString;
-{
+- (BOOL)textView:(NSTextView *)aTextView shouldChangeTextInRange:(NSRange)affectedCharRange replacementString:(NSString *)replacementString {
 	NSBeep();
 	return NO;
 }
@@ -1187,8 +1132,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSSplitViewDelegate
 
-- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset;
-{
+- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
 	if (offset == 0) {
 		NSRect r = [[self window] frame];
 		return r.size.height - 129;
@@ -1197,8 +1141,7 @@ typedef enum {
 }
 
 
-- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset;
-{
+- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
 	if (offset == 0) {
 		return 30;
 	}
@@ -1209,8 +1152,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSControlNotifications
 
-- (void)textDidEndEditing:(NSNotification *)aNotification;
-{
+- (void)textDidEndEditing:(NSNotification *)aNotification {
 	id textField = [aNotification object];
 	if ([textField isDescendantOf:catalogTable]) {
 		//NSLog(@"textField: %@", textField);
@@ -1219,8 +1161,7 @@ typedef enum {
 }
 
 
-- (void)menuDidSendAction:(NSNotification *)aNotification;
-{	
+- (void)menuDidSendAction:(NSNotification *)aNotification {	
 	id menu = [aNotification object];
 	if ([[[menu itemAtIndex:0] title] isEqualToString:@"Disabled"] 
 		&& [[[menu itemAtIndex:1] title] isEqualToString:@"Public"]) {
@@ -1230,8 +1171,7 @@ typedef enum {
 }
 
 
-- (void)tableSelectionDidChange:(NSNotification *)aNotification;
-{
+- (void)tableSelectionDidChange:(NSNotification *)aNotification {
 	[self updateCatalog];
 }
 
@@ -1239,63 +1179,53 @@ typedef enum {
 #pragma mark -
 #pragma mark Accessors
 
-- (BOOL)busy;
-{
+- (BOOL)busy {
 	return busy;
 }
 
 
-- (void)setBusy:(BOOL)yn;
-{
+- (void)setBusy:(BOOL)yn {
 	busy = yn;
 }
 
 
-- (BOOL)showSettings;
-{
+- (BOOL)showSettings {
 	return showSettings;
 }
 
 
-- (void)setShowSettings:(BOOL)yn;
-{
+- (void)setShowSettings:(BOOL)yn {
 	showSettings = yn;
 	[self changeSizeForSettings];
 }
 
 
-- (BOOL)playSounds;
-{
+- (BOOL)playSounds {
 	return playSounds;
 }
 
 
-- (void)setPlaySounds:(BOOL)yn;
-{
+- (void)setPlaySounds:(BOOL)yn {
 	playSounds = yn;
 }
 
 
-- (int)preferedCatalogItemType;
-{
+- (int)preferedCatalogItemType {
 	return preferedCatalogItemType;
 }
 
 
-- (void)setPreferedCatalogItemType:(int)n;
-{
+- (void)setPreferedCatalogItemType:(int)n {
 	preferedCatalogItemType = n;
 	[catalogService setPrefer:n];
 }
 
-- (NSMutableArray *)catalogItems;
-{
+- (NSMutableArray *)catalogItems {
 	return catalogItems;
 }
 
 
-- (void)setCatalogItems:(NSMutableArray *)newItems;
-{
+- (void)setCatalogItems:(NSMutableArray *)newItems {
 	if (catalogItems != newItems) {
 		[catalogItems autorelease];
 		catalogItems = [newItems retain];
@@ -1303,14 +1233,12 @@ typedef enum {
 }
 
 
-- (XMLParseCommand *)command;
-{
+- (XMLParseCommand *)command {
 	return command;
 }
 
 
-- (void)setCommand:(XMLParseCommand *)c;
-{
+- (void)setCommand:(XMLParseCommand *)c {
 	if (command != c) {
 		[command autorelease];
 		command = [c retain];
@@ -1318,14 +1246,12 @@ typedef enum {
 }
 
 
-- (NSMutableArray *)recentSchemaURLStrings;
-{
+- (NSMutableArray *)recentSchemaURLStrings {
 	return recentSchemaURLStrings;
 }
 
 
-- (void)setRecentSchemaURLStrings:(NSMutableArray *)newStrs;
-{
+- (void)setRecentSchemaURLStrings:(NSMutableArray *)newStrs {
 	if (recentSchemaURLStrings != newStrs) {
 		[recentSchemaURLStrings autorelease];
 		recentSchemaURLStrings = [newStrs retain];
@@ -1333,14 +1259,12 @@ typedef enum {
 }
 
 
-- (NSMutableArray *)recentXPathStrings;
-{
+- (NSMutableArray *)recentXPathStrings {
 	return recentXPathStrings;
 }
 
 
-- (void)setRecentXPathStrings:(NSMutableArray *)newStrs;
-{
+- (void)setRecentXPathStrings:(NSMutableArray *)newStrs {
 	if (recentXPathStrings != newStrs) {
 		[recentXPathStrings autorelease];
 		recentXPathStrings = [newStrs retain];
@@ -1348,14 +1272,12 @@ typedef enum {
 }
 
 
-- (NSString *)sourceXMLString;
-{
+- (NSString *)sourceXMLString {
 	return sourceXMLString;
 }
 
 
-- (void)setSourceXMLString:(NSString *)newStr;
-{
+- (void)setSourceXMLString:(NSString *)newStr {
 	if (sourceXMLString != newStr) {
 		[sourceXMLString autorelease];
 		sourceXMLString = [newStr retain];
@@ -1363,28 +1285,24 @@ typedef enum {
 }
 
 
-- (NSString *)catalogXMLString;
-{
+- (NSString *)catalogXMLString {
 	return catalogXMLString;
 }
 
 
-- (void)setCatalogXMLString:(NSString *)newStr;
-{
+- (void)setCatalogXMLString:(NSString *)newStr {
 	if (catalogXMLString != newStr) {
 		[catalogXMLString autorelease];
 		catalogXMLString = [newStr retain];
 	}
 }
 
-- (NSString *)XPathString;
-{
+- (NSString *)XPathString {
 	return XPathString;
 }
 
 
-- (void)setXPathString:(NSString *)newStr;
-{
+- (void)setXPathString:(NSString *)newStr {
 	if (XPathString != newStr) {
 		[XPathString autorelease];
 		XPathString = [newStr retain];
@@ -1392,14 +1310,12 @@ typedef enum {
 }
 
 
-- (NSAttributedString *)queryResultString;
-{
+- (NSAttributedString *)queryResultString {
 	return queryResultString;
 }
 
 
-- (void)setQueryResultString:(NSAttributedString *)newStr;
-{
+- (void)setQueryResultString:(NSAttributedString *)newStr {
 	if (queryResultString != newStr) {
 		[queryResultString autorelease];
 		queryResultString = [newStr retain];
@@ -1407,14 +1323,12 @@ typedef enum {
 }
 
 
-- (NSMutableString *)queryConsoleString;
-{
+- (NSMutableString *)queryConsoleString {
 	return queryConsoleString;
 }
 
 
-- (void)setQueryConsoleString:(NSMutableString *)newStr;
-{
+- (void)setQueryConsoleString:(NSMutableString *)newStr {
 	if (queryConsoleString != newStr) {
 		[queryConsoleString autorelease];
 		queryConsoleString = [newStr retain];
@@ -1422,26 +1336,22 @@ typedef enum {
 }
 
 
-- (int)queryResultLength;
-{
+- (int)queryResultLength {
 	return queryResultLength;
 }
 
 
-- (void)setQueryResultLength:(int)n;
-{
+- (void)setQueryResultLength:(int)n {
 	queryResultLength = n;
 }
 
 
-- (NSArray *)queryResultNodes;
-{
+- (NSArray *)queryResultNodes {
 	return queryResultNodes;
 }
 
 
-- (void)setQueryResultNodes:(NSArray *)a;
-{
+- (void)setQueryResultNodes:(NSArray *)a {
 	if (queryResultNodes != a) {
 		[queryResultNodes autorelease];
 		queryResultNodes = [a retain];

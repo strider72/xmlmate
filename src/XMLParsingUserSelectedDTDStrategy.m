@@ -14,8 +14,7 @@
 
 @implementation XMLParsingUserSelectedDTDStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingUserSelectedDTDStrategy parse:");
 
 	xmlValidCtxtPtr validCtxt	= NULL;

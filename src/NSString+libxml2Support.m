@@ -11,20 +11,17 @@
 
 @implementation NSString (libxml2Support)
 
-+ (id)stringWithXmlChar:(const xmlChar *)xc;
-{
++ (id)stringWithXmlChar:(const xmlChar *)xc {
 	return [NSString stringWithUTF8String:(char *)xc];
 }
 
 
-- (const xmlChar *)xmlChar;
-{
+- (const xmlChar *)xmlChar {
 	return (const unsigned char *)[self UTF8String];
 }
 
 
-- (NSString *)stringByRemovingCurlyBraces;
-{
+- (NSString *)stringByRemovingCurlyBraces {
 	if ([self hasPrefix:@"{"]) {
 		NSRange r = NSMakeRange(1, [self length]-2);
 		return [self substringWithRange:r];

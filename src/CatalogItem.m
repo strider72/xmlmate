@@ -11,8 +11,7 @@
 
 @implementation CatalogItem
 
-- (id)initWithCoder:(NSCoder *)coder;
-{
+- (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	[self setType:[coder decodeIntForKey:@"type"]];
 	[self setOrig:[coder decodeObjectForKey:@"orig"]];
@@ -21,16 +20,14 @@
 }
 
 
-- (void)encodeWithCoder:(NSCoder *)coder;
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeInt:type forKey:@"type"];
 	[coder encodeObject:orig forKey:@"orig"];
 	[coder encodeObject:replace forKey:@"replace"];
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	[self setOrig:nil];
 	[self setReplace:nil];
 	[super dealloc];
@@ -38,8 +35,7 @@
 
 #pragma mark -
 
-- (NSString *)description;
-{
+- (NSString *)description {
 	return [NSString stringWithFormat:@"<CatalogItem { \n\ttype:%d, \n\torig: %@, \n\treplace: %@ }",
 		type, orig, replace];
 }
@@ -48,26 +44,22 @@
 #pragma mark -
 #pragma mark Accessors
 
-- (int)type;
-{
+- (int)type {
 	return type;
 }
 
 
-- (void)setType:(int)newType;
-{
+- (void)setType:(int)newType {
 	type = newType;
 }
 
 
-- (NSString *)orig;
-{
+- (NSString *)orig {
 	return orig;
 }
 
 
-- (void)setOrig:(NSString *)newStr;
-{
+- (void)setOrig:(NSString *)newStr {
 	if (orig != newStr) {
 		[orig autorelease];
 		orig = [newStr retain];
@@ -75,14 +67,12 @@
 }
 
 
-- (NSString *)replace;
-{
+- (NSString *)replace {
 	return replace;
 }
 
 
-- (void)setReplace:(NSString *)newStr;
-{
+- (void)setReplace:(NSString *)newStr {
 	if (replace != newStr) {
 		[replace autorelease];
 		replace = [newStr retain];
