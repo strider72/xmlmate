@@ -75,12 +75,12 @@ static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error) {
 	xmlXPathContextPtr xpathCtxt = NULL;
 	xmlXPathObjectPtr xpathObj = NULL;
 	
-	xmlSetStructuredErrorFunc((void *)self,(xmlStructuredErrorFunc)switchToParseTabStructuredHandler);
+	xmlSetStructuredErrorFunc((void *)self, (xmlStructuredErrorFunc)switchToParseTabStructuredHandler);
 
-	NSString *xpathExpr			= [args objectAtIndex:0];
-	XMLParseCommand *command	= [args objectAtIndex:1];
-	NSString *sourceURLString	= [command sourceURLString];
-	NSData *sourceXMLData		= [command sourceXMLData];
+	NSString *xpathExpr = [args objectAtIndex:0];
+	XMLParseCommand *command = [args objectAtIndex:1];
+	NSString *sourceURLString = [command sourceURLString];
+	NSData *sourceXMLData = [command sourceXMLData];
 			
 	docPtr = xmlReadMemory([sourceXMLData bytes], 
 						   [sourceXMLData length], 
@@ -123,11 +123,11 @@ static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error) {
 	}
  */	
 	
-	xmlChar *doc_txt_ptr;
-	int doc_txt_len;
-	xmlDocDumpMemoryEnc(docPtr, &doc_txt_ptr, &doc_txt_len, "utf-8");
-	NSString *XMLString = [[[NSString alloc] initWithBytesNoCopy:doc_txt_ptr
-														  length:doc_txt_len
+	xmlChar *docTxtPtr = NULL;
+	int docTxtLen = 0;
+	xmlDocDumpMemoryEnc(docPtr, &docTxtPtr, &docTxtLen, "utf-8");
+	NSString *XMLString = [[[NSString alloc] initWithBytesNoCopy:docTxtPtr
+														  length:docTxtLen
 														encoding:NSUTF8StringEncoding
 													freeWhenDone:YES] autorelease];
 	
