@@ -15,89 +15,74 @@
 @end
 
 
-static NSNumber *selectionExpansionStyle()
-{
+static NSNumber *selectionExpansionStyle() {
 	return [NSNumber numberWithFloat:.2];
 }
 
 
-static NSNumber *nonSelectionExpansionStyle()
-{
+static NSNumber *nonSelectionExpansionStyle() {
 	return [NSNumber numberWithFloat:0.];
 }
 
 
-static NSNumber *selectionUnderlineStyle()
-{
+static NSNumber *selectionUnderlineStyle() {
 	return [NSNumber numberWithInt:(NSUnderlinePatternSolid|NSUnderlineStyleSingle)];
 }
 
 
-static NSNumber *nonSelectionUnderlineStyle()
-{
+static NSNumber *nonSelectionUnderlineStyle() {
 	return [NSNumber numberWithInt:NSUnderlineStyleNone];
 }
 
 
-static NSColor *selectionUnderlineColor()
-{
+static NSColor *selectionUnderlineColor() {
 	return [NSColor blackColor];
 }
 
 
-static NSColor *selectionBackgroundColor()
-{
+static NSColor *selectionBackgroundColor() {
 	return [NSColor yellowColor];
 }
 
 
-static NSColor *nonSelectionBackgroundColor()
-{
+static NSColor *nonSelectionBackgroundColor() {
 	return [NSColor whiteColor];
 }
 
 
-static NSColor *elementNameColor()
-{
+static NSColor *elementNameColor() {
 	return [NSColor purpleColor];
 }
 
 
-static NSColor *angleBracketColor()
-{
+static NSColor *angleBracketColor() {
 	return [NSColor blackColor];
 }
 
 
-static NSColor *attributeNameColor()
-{
+static NSColor *attributeNameColor() {
 	return [NSColor blackColor];
 }
 
 
-static NSColor *quoteSymbolColor()
-{
+static NSColor *quoteSymbolColor() {
 	return [NSColor blueColor];
 }
 
 
-static NSColor *equalSymbolColor()
-{
+static NSColor *equalSymbolColor() {
 	return [NSColor blackColor];
 }
 
 
-static NSColor *attributeValueColor()
-{
+static NSColor *attributeValueColor() {
 	return [NSColor blueColor];
 }
-
 
 
 @implementation NSXMLDocument (SyntaxHighlite)
 
-- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths {
 	NSMutableAttributedString *res = [[[NSMutableAttributedString alloc] init] autorelease];
 	
 	NSArray *kids = [self children];
@@ -113,11 +98,9 @@ static NSColor *attributeValueColor()
 
 @end
 
-
 @implementation NSXMLElement (SyntaxHighlite)
 
-- (NSString *)startTagXMLString;
-{
+- (NSString *)startTagXMLString {
 	//NSString *XMLString = [self XMLStringWithOptions:NSXMLNodePreserveAll];
 	NSString *XMLString = [self description];
 	NSRange r = [XMLString rangeOfString:@">"];
@@ -126,8 +109,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (NSString *)endTagXMLString;
-{
+- (NSString *)endTagXMLString {
 	//NSString *XMLString = [self XMLStringWithOptions:NSXMLNodePreserveAll];
 	NSString *XMLString = [self description];
 	NSRange r = [XMLString rangeOfString:@"<" options:NSBackwardsSearch];
@@ -146,20 +128,18 @@ static NSColor *attributeValueColor()
 	}
 		
 	i += 1;
-	r = NSMakeRange(i,	[XMLString length] - i);
+	r = NSMakeRange(i, [XMLString length] - i);
 	return [XMLString substringWithRange:r];
 }
 
 
-- (BOOL)isDecorated;
-{
+- (BOOL)isDecorated {
 	NSCharacterSet *quoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"'\""];
 	return NSNotFound != [[self startTagXMLString] rangeOfCharacterFromSet:quoteCharacterSet].location;
 }
 
 
-- (BOOL)isEmpty;
-{
+- (BOOL)isEmpty {
 	return NO;
 	NSScanner *scanner = [NSScanner scannerWithString:[self startTagXMLString]];
 	NSString *tmp = nil;
@@ -171,8 +151,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths {
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:6];
 	[attrs setObject:[NSFont fontWithName:@"Monaco" size:9.] forKey:NSFontAttributeName];
 	[attrs setObject:[NSColor whiteColor] forKey:NSBackgroundColorAttributeName];
@@ -293,7 +272,7 @@ static NSColor *attributeValueColor()
 		
 	}
 	
-	if ([scanner scanUpToString:@"" intoString:&tmp])  {
+	if ([scanner scanUpToString:@"" intoString:&tmp]) {
 		[attrs setObject:angleBracketColor() forKey:NSForegroundColorAttributeName];
 		[res appendAttributedString:[[[NSAttributedString alloc] initWithString:tmp attributes:attrs] autorelease]];
 	}
@@ -303,11 +282,9 @@ static NSColor *attributeValueColor()
 
 @end
 
-
 @implementation NSXMLDTD (SyntaxHighlite)
 
-- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths {
 	//NSString *XMLString = [self XMLStringWithOptions:NSXMLNodePreserveAll];
 	NSString *XMLString = [self description];
 	
@@ -317,18 +294,15 @@ static NSColor *attributeValueColor()
 		nil];
 	
 	
-	NSAttributedString *res = [[[NSAttributedString alloc] initWithString:XMLString 
-															   attributes:attrs] autorelease];
+	NSAttributedString *res = [[[NSAttributedString alloc] initWithString:XMLString attributes:attrs] autorelease];
 	return res;
 }
 
 @end
 
-
 @implementation NSXMLNode (SyntaxHighlite)
 
-- (NSAttributedString *)highlitedAttributedStringForAttributeWithSelectedXPaths:(NSArray *)xpaths;
-{	
+- (NSAttributedString *)highlitedAttributedStringForAttributeWithSelectedXPaths:(NSArray *)xpaths {	
 	NSMutableAttributedString *res = [[[NSMutableAttributedString alloc] init] autorelease];
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:6];
 	
@@ -385,8 +359,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (NSAttributedString *)highlitedAttributedStringForPIWithSelectedXPaths:(NSArray *)xpaths;
-{	
+- (NSAttributedString *)highlitedAttributedStringForPIWithSelectedXPaths:(NSArray *)xpaths {	
 	NSMutableAttributedString *res = [[[NSMutableAttributedString alloc] init] autorelease];
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:6];
 
@@ -402,11 +375,11 @@ static NSColor *attributeValueColor()
 	
 	NSCharacterSet *startSet = [NSCharacterSet characterSetWithCharactersInString:@"<?"];
 	
-	if ([scanner scanUpToCharactersFromSet:startSet intoString:&tmp]){
+	if ([scanner scanUpToCharactersFromSet:startSet intoString:&tmp]) {
 		[res appendAttributedString:[[[NSAttributedString alloc] initWithString:tmp attributes:attrs] autorelease]];
 	}
 	
-	if ([scanner scanUpToCharactersFromSet:[startSet invertedSet] intoString:&tmp]){
+	if ([scanner scanUpToCharactersFromSet:[startSet invertedSet] intoString:&tmp]) {
 		[res appendAttributedString:[[[NSAttributedString alloc] initWithString:tmp attributes:attrs] autorelease]];
 	}
 	
@@ -432,8 +405,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (NSAttributedString *)highlitedAttributedStringForCommentWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringForCommentWithSelectedXPaths:(NSArray *)xpaths {
 	NSMutableAttributedString *res = [[[NSMutableAttributedString alloc] init] autorelease];
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:6];
 	[attrs setObject:[NSFont fontWithName:@"Monaco" size:9.] forKey:NSFontAttributeName];
@@ -477,8 +449,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (NSAttributedString *)highlitedAttributedStringForTextWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringForTextWithSelectedXPaths:(NSArray *)xpaths {
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionaryWithCapacity:6];
 	
 	[attrs setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
@@ -494,15 +465,12 @@ static NSColor *attributeValueColor()
 	}
 	
 	//NSAttributedString *res = [[[NSAttributedString alloc] initWithString:[self XMLStringWithOptions:NSXMLNodePreserveAll]
-	NSAttributedString *res = [[[NSAttributedString alloc] initWithString:[self description]
-															   attributes:attrs] autorelease];
-	
+	NSAttributedString *res = [[[NSAttributedString alloc] initWithString:[self description] attributes:attrs] autorelease];
 	return res;
 }
 
 
-- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths;
-{
+- (NSAttributedString *)highlitedAttributedStringWithSelectedXPaths:(NSArray *)xpaths {
 	NSAttributedString *res	= nil;
 	
 	switch ([self kind]) {
@@ -535,16 +503,14 @@ static NSColor *attributeValueColor()
 			[self setSelectionAttributes:attrs];
 		}
 		
-		res = [[[NSAttributedString alloc] initWithString:XMLString
-											   attributes:attrs] autorelease];
+		res = [[[NSAttributedString alloc] initWithString:XMLString attributes:attrs] autorelease];
 	}
 	
 	return res;
 }
 
 
-- (void)setSelectionAttributes:(NSMutableDictionary *)attrs;
-{
+- (void)setSelectionAttributes:(NSMutableDictionary *)attrs {
 	[attrs setObject:selectionBackgroundColor() forKey:NSBackgroundColorAttributeName];
 	[attrs setObject:selectionUnderlineColor() forKey:NSUnderlineColorAttributeName];
 	[attrs setObject:selectionUnderlineStyle() forKey:NSUnderlineStyleAttributeName];
@@ -552,8 +518,7 @@ static NSColor *attributeValueColor()
 }
 
 
-- (void)setNonSelectionAttributes:(NSMutableDictionary *)attrs;
-{
+- (void)setNonSelectionAttributes:(NSMutableDictionary *)attrs {
 	[attrs setObject:nonSelectionBackgroundColor() forKey:NSBackgroundColorAttributeName];
 	[attrs setObject:nonSelectionUnderlineStyle() forKey:NSUnderlineStyleAttributeName];
 	[attrs setObject:nonSelectionExpansionStyle() forKey:NSExpansionAttributeName];
