@@ -18,8 +18,7 @@
 
 #pragma mark -
 
-- (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService;
-{
+- (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService {
 	self = [super init];
 	if (self != nil) {
 		service = aService;
@@ -28,8 +27,7 @@
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	//NSLog(@"%@ dealloc", NSStringFromClass([self class]));
 	[super dealloc];
 }
@@ -38,16 +36,14 @@
 #pragma mark -
 #pragma mark XMLParsingStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	[NSException raise:@"NotImplException" 
 				format:@"Subclass '%@' of XMLParsingStrategy should implement parse:", 
 		NSStringFromClass([self class])];
 }
 
 
-- (int)optionsForCommand:(XMLParseCommand *)command;
-{
+- (int)optionsForCommand:(XMLParseCommand *)command {
 	int opts = 0; //XML_PARSE_PEDANTIC;
 	
 	if ([command loadDTD])
@@ -66,8 +62,7 @@
 }
 
 
-- (NSData* )fetchDataForResource:(NSString *)URLString error:(NSError **)err;
-{
+- (NSData* )fetchDataForResource:(NSString *)URLString error:(NSError **)err {
 	if ([URLString hasPrefix:@"http://"] || [URLString hasPrefix:@"https://"]) {
 		return [self fetchRemoteResource:URLString error:err];
 	} else {
@@ -79,8 +74,7 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSData *)fetchRemoteResource:(NSString *)URLString error:(NSError **)err;
-{
+- (NSData *)fetchRemoteResource:(NSString *)URLString error:(NSError **)err {
 	NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
 	NSURLResponse *res = nil;
 	NSData *data = [NSURLConnection sendSynchronousRequest:req
@@ -90,8 +84,7 @@
 }
 
 
-- (NSData *)fetchLocalResource:(NSString *)URLString error:(NSError **)err;
-{
+- (NSData *)fetchLocalResource:(NSString *)URLString error:(NSError **)err {
 	return [NSData dataWithContentsOfFile:URLString
 								  options:0
 									error:err];

@@ -15,8 +15,7 @@
 
 @implementation XMLParsingXSDStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingXSDStrategy parse:");
 	
 	xmlSchemaParserCtxtPtr parserCtxt	= NULL;

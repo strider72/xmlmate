@@ -11,8 +11,7 @@
 
 @implementation XMLParseCommand
 
-- (id)init;
-{
+- (id)init {
 	self = [super init];
 	if (self != nil) {
 		[self setDoNamespaces:YES];
@@ -27,8 +26,7 @@
 }
 
 
-- (id)initWithCoder:(NSCoder *)coder;
-{
+- (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	[self setSourceURLString:[coder decodeObjectForKey:@"sourceURLString"]];
 	[self setSchemaURLString:[coder decodeObjectForKey:@"schemaURLString"]];
@@ -44,8 +42,7 @@
 }
 
 
-- (void)encodeWithCoder:(NSCoder *)coder;
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:sourceURLString forKey:@"sourceURLString"];
 	[coder encodeObject:schemaURLString forKey:@"schemaURLString"];
 	[coder encodeInt:validationType forKey:@"validationType"];
@@ -59,8 +56,7 @@
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	[self setSourceURLString:nil];
 	[self setSchemaURLString:nil];
 	[self setSourceXMLData:nil];
@@ -71,8 +67,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSString *)description;
-{
+- (NSString *)description {
 	return [NSString stringWithFormat:
 		@"<XMLParseCommand { \n\tsourceURLString = %@\n\tschemaURLString = %@\n\tvalidationType = %d\n\tverbose = %d\n\tloadDTD = %d\n\tdefaultDTDAttributes = %d\n\tsubstituteEntities = %d\n\tmergeCDATA = %d\n\tprocessXIncludes = %d \n}>",
 		sourceURLString, schemaURLString, validationType, verbose, loadDTD, defaultDTDAttributes, substituteEntities, mergeCDATA, processXIncludes];
@@ -82,14 +77,12 @@
 #pragma mark -
 #pragma mark Accessors
 
-- (NSString *)sourceURLString;
-{
+- (NSString *)sourceURLString {
 	return sourceURLString;
 }
 
 
-- (void)setSourceURLString:(NSString *)newString;
-{
+- (void)setSourceURLString:(NSString *)newString {
 	if (sourceURLString != newString) {
 		[sourceURLString autorelease];
 		sourceURLString = [newString retain];
@@ -97,14 +90,12 @@
 }
 
 
-- (NSData *)sourceXMLData;
-{
+- (NSData *)sourceXMLData {
 	return sourceXMLData;
 }
 
 
-- (void)setSourceXMLData:(NSData *)newData;
-{
+- (void)setSourceXMLData:(NSData *)newData {
 	if (sourceXMLData != newData) {
 		[sourceXMLData autorelease];
 		sourceXMLData = [newData retain];
@@ -112,14 +103,12 @@
 }
 
 
-- (NSString *)schemaURLString;
-{
+- (NSString *)schemaURLString {
 	return schemaURLString;
 }
 
 
-- (void)setSchemaURLString:(NSString *)newString;
-{
+- (void)setSchemaURLString:(NSString *)newString {
 	if (schemaURLString != newString) {
 		[schemaURLString autorelease];
 		schemaURLString = [newString retain];
@@ -127,98 +116,82 @@
 }
 
 
-- (XMLValidationType)validationType;
-{
+- (XMLValidationType)validationType {
 	return validationType;
 }
 
 
-- (void)setValidationType:(XMLValidationType)newType;
-{
+- (void)setValidationType:(XMLValidationType)newType {
 	validationType = newType;
 }
 
 
-- (BOOL)verbose;
-{
+- (BOOL)verbose {
 	return verbose;
 }
 
 
-- (void)setVerbose:(BOOL)yn;
-{
+- (void)setVerbose:(BOOL)yn {
 	verbose = yn;
 }
 
 
-- (BOOL)doNamespaces;
-{
+- (BOOL)doNamespaces {
 	return doNamespaces;
 }
 
 
-- (void)setDoNamespaces:(BOOL)yn;
-{
+- (void)setDoNamespaces:(BOOL)yn {
 	doNamespaces = yn;
 }
 
 
-- (BOOL)loadDTD;
-{
+- (BOOL)loadDTD {
 	return loadDTD;
 }
 
 
-- (void)setLoadDTD:(BOOL)yn;
-{
+- (void)setLoadDTD:(BOOL)yn {
 	loadDTD = yn;
 }
 
 
-- (BOOL)defaultDTDAttributes;
-{
+- (BOOL)defaultDTDAttributes {
 	return defaultDTDAttributes;
 }
 
 
-- (void)setDefaultDTDAttributes:(BOOL)yn;
-{
+- (void)setDefaultDTDAttributes:(BOOL)yn {
 	defaultDTDAttributes = yn;
 }
 
 
-- (BOOL)substituteEntities;
-{
+- (BOOL)substituteEntities {
 	return substituteEntities;
 }
 
 
-- (void)setSubstituteEntities:(BOOL)yn;
-{
+- (void)setSubstituteEntities:(BOOL)yn {
 	substituteEntities = yn;
 }
 
 
-- (BOOL)mergeCDATA;
-{
+- (BOOL)mergeCDATA {
 	return mergeCDATA;
 }
 
 
-- (void)setMergeCDATA:(BOOL)yn;
-{
+- (void)setMergeCDATA:(BOOL)yn {
 	mergeCDATA = yn;
 }
 
 
-- (BOOL)processXIncludes;
-{
+- (BOOL)processXIncludes {
 	return processXIncludes;
 }
 
 
-- (void)setProcessXIncludes:(BOOL)yn;
-{
+- (void)setProcessXIncludes:(BOOL)yn {
 	processXIncludes = yn;
 }
 

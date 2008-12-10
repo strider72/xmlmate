@@ -32,8 +32,7 @@
 
 #pragma mark -
 
-- (id)initWithDelegate:(id)aDelegate;
-{
+- (id)initWithDelegate:(id)aDelegate {
 	self = [super init];
 	if (self != nil) {
 		delegate = aDelegate;
@@ -45,8 +44,7 @@
 #pragma mark -
 #pragma mark XPathService
 
-- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command;
-{
+- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command {
 	NSArray *args = [NSArray arrayWithObjects:XPathString, command, nil];
 	
 	[NSThread detachNewThreadSelector:@selector(doExecuteQuery:)
@@ -69,8 +67,7 @@ static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error)
 }
 
 
-- (void)doExecuteQuery:(NSArray *)args;
-{
+- (void)doExecuteQuery:(NSArray *)args {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 	terminated = NO;
@@ -164,8 +161,7 @@ leave:
 }
 
 
-- (int)optionsForCommand:(XMLParseCommand *)command;
-{
+- (int)optionsForCommand:(XMLParseCommand *)command {
 	int opts = 0; //XML_PARSE_PEDANTIC;
 	
 	if ([command loadDTD])
@@ -184,8 +180,7 @@ leave:
 }
 
 
-- (id)resultsForExpr:(NSString *)xpathExpr XMLString:(NSString *)XMLString error:(NSError **)err;
-{
+- (id)resultsForExpr:(NSString *)xpathExpr XMLString:(NSString *)XMLString error:(NSError **)err {
 	NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:XMLString
 														   options:NSXMLNodePreserveAll
 															 error:nil] autorelease];
@@ -220,8 +215,7 @@ leave:
 }
 
 
-- (NSAttributedString *)attributedStringFromError:(NSError *)err;
-{
+- (NSAttributedString *)attributedStringFromError:(NSError *)err {
 	//NSColor *color = [NSColor colorWithDeviceRed:255. green:15. blue:0. alpha:1.];
 	
 	NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor redColor]
@@ -233,8 +227,7 @@ leave:
 }
 
 
-- (void)success:(id)sequence;
-{
+- (void)success:(id)sequence {
 	if (terminated) {
 		return;
 	}
@@ -244,36 +237,31 @@ leave:
 }
 
 
-- (void)doSuccess:(id)sequence;
-{
+- (void)doSuccess:(id)sequence {
 	[delegate xpathService:self didFinish:sequence];
 }
 
 
-- (void)error:(id)errInfo;
-{
+- (void)error:(id)errInfo {
 	[self performSelectorOnMainThread:@selector(doError:)
 						   withObject:errInfo
 						waitUntilDone:NO];
 }
 
 
-- (void)doError:(id)errInfo;
-{
+- (void)doError:(id)errInfo {
 	[delegate xpathService:self error:errInfo];	
 }
 
 
-- (void)parseError:(id)errInfo;
-{
+- (void)parseError:(id)errInfo {
 	[self performSelectorOnMainThread:@selector(doParseError:)
 						   withObject:errInfo
 						waitUntilDone:NO];
 }
 
 
-- (void)doParseError:(id)errInfo;
-{
+- (void)doParseError:(id)errInfo {
 	[delegate xpathService:self parseError:errInfo];	
 }
 

@@ -40,8 +40,7 @@ static NSString * const PrefsFileExt				= @"plist";
 
 #pragma mark -
 
-+ (void)initialize;
-{
++ (void)initialize {
 	//NSLog(@"registering defaults");
 	NSDictionary *values = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
 													   forKey:kFLoatingPanelKey];
@@ -50,8 +49,7 @@ static NSString * const PrefsFileExt				= @"plist";
 }
 
 
-+ (NSBundle *)bundle;
-{
++ (NSBundle *)bundle {
 	return [NSBundle bundleWithIdentifier:XMLMateBundleIdentifier];
 }
 
@@ -59,8 +57,7 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark TMPlugIn
 
-- (id)initWithPlugInController:(id <TMPlugInController>)aController;
-{
+- (id)initWithPlugInController:(id <TMPlugInController>)aController {
 	self = [super init];
 	if (self != nil) {
 		NSApp = [NSApplication sharedApplication];
@@ -70,8 +67,7 @@ static NSString * const PrefsFileExt				= @"plist";
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	[self setController:nil];
 	[super dealloc];
 }
@@ -80,8 +76,7 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark Public
 
-- (void)installMenuItems;
-{
+- (void)installMenuItems {
 	id windowMenu = [[[NSApp mainMenu] itemWithTitle:@"Window"] submenu];
 	
 	if (windowMenu) {
@@ -103,8 +98,7 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark Actions
 
-- (void)showPalette:(id)sender;
-{
+- (void)showPalette:(id)sender {
 	[self initController];
 	[self determineFloatingPanelStatus];
 	[self loadPlugInPrefs];
@@ -115,8 +109,7 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark Private
 
-- (void)initController;
-{
+- (void)initController {
 	@synchronized (self) {
 		if (!controller) {
 			[self setController:[[[XMLMateController alloc] init] autorelease]];
@@ -132,8 +125,7 @@ static NSString * const PrefsFileExt				= @"plist";
 }
 
 
-- (void)determineFloatingPanelStatus;
-{
+- (void)determineFloatingPanelStatus {
 	BOOL floatingPanel = [[NSUserDefaults standardUserDefaults] boolForKey:kFLoatingPanelKey];
 	//NSLog(@"floatingPanel: %d", floatingPanel);
 	[(NSPanel *)[controller window] setFloatingPanel:floatingPanel];
@@ -141,8 +133,7 @@ static NSString * const PrefsFileExt				= @"plist";
 }
 
 
-- (void)loadPlugInPrefs;
-{
+- (void)loadPlugInPrefs {
 	//NSLog(@"loadPlugInPrefs");
 	NSBundle *bundle = [XMLMatePlugIn bundle];
 	NSString *path	 = [bundle pathForResource:PrefsFileName ofType:PrefsFileExt];
@@ -175,8 +166,7 @@ static NSString * const PrefsFileExt				= @"plist";
 }
 
 
-- (void)savePlugInPrefs;
-{
+- (void)savePlugInPrefs {
 	//NSLog(@"savePlugInPrefs");
 	
 	NSString *path = [[XMLMatePlugIn bundle] resourcePath];
@@ -213,8 +203,7 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark NSWindowDelegate
 
-- (void)windowWillClose:(NSNotification *)n;
-{	
+- (void)windowWillClose:(NSNotification *)n {	
 	[self savePlugInPrefs];
 	[self setController:nil];
 }
@@ -223,14 +212,12 @@ static NSString * const PrefsFileExt				= @"plist";
 #pragma mark -
 #pragma mark Accessors
 
-- (id)controller;
-{
+- (id)controller {
 	return controller;
 }
 
 
-- (void)setController:(id)newController;
-{
+- (void)setController:(id)newController {
 	if (controller != newController) {
 		[controller autorelease];
 		controller = [newController retain];

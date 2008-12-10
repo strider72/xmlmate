@@ -11,8 +11,7 @@
 
 @implementation XPathObjWrapper
 
-- (id)initWithObj:(xmlXPathObjectPtr)newObj;
-{
+- (id)initWithObj:(xmlXPathObjectPtr)newObj {
 	self = [super init];
 	if (self != nil) {
 		obj = newObj;
@@ -21,8 +20,7 @@
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	if (NULL != obj) {
 		xmlXPathFreeObject(obj);
 		obj = NULL;
@@ -32,8 +30,7 @@
 
 
 
-- (xmlXPathObjectPtr)obj;
-{
+- (xmlXPathObjectPtr)obj {
 	return obj;
 }
 

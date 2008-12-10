@@ -12,8 +12,7 @@
 @implementation XPathResultTextView
 
 /*
-- (void)drawRect:(NSRect)rect;
-{
+- (void)drawRect:(NSRect)rect {
 	[super drawRect:rect];
 	
 	NSRange r = NSMakeRange(10, 1000);

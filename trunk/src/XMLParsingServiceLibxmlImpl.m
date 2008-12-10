@@ -61,15 +61,13 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 
 @implementation XMLParsingServiceLibxmlImpl
 
-+ (void)initialize;
-{
++ (void)initialize {
 	[self setupLibxml];
 }
 
 #pragma mark -
 
-- (id)initWithDelegate:(id)aDelegate;
-{
+- (id)initWithDelegate:(id)aDelegate {
 	self = [super init];
 	if (self != nil) {
 		delegate = aDelegate;
@@ -78,8 +76,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-- (void)dealloc;
-{
+- (void)dealloc {
 	// cleanup libxml
 	xmlCleanupParser();
 	[super dealloc];
@@ -89,8 +86,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 #pragma mark -
 #pragma mark XMLParsingService
 
-+ (void)setupLibxml;
-{
++ (void)setupLibxml {
     /*
      * this initialize the library and check potential ABI mismatches
      * between the version it was compiled for and the actual shared
@@ -102,15 +98,13 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-- (void)setupErrorHandlers;
-{
+- (void)setupErrorHandlers {
 	xmlSetGenericErrorFunc((void *)self, (xmlGenericErrorFunc)myGenericErrorHandler);
 	xmlSetStructuredErrorFunc((void *)self, (xmlStructuredErrorFunc)myStructuredErrorAdapter);
 }
 
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	[NSThread detachNewThreadSelector:@selector(doParse:)
 							 toTarget:self
 						   withObject:command];
@@ -120,80 +114,70 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 #pragma mark -
 #pragma mark StrategyCallbacks
 
-- (void)strategyWillParse:(XMLParseCommand *)command;
-{
+- (void)strategyWillParse:(XMLParseCommand *)command {
 	[self performSelectorOnMainThread:@selector(willParse:)
 						   withObject:command
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyDidParse:(XMLParseCommand *)command;
-{
+- (void)strategyDidParse:(XMLParseCommand *)command {
 	[self performSelectorOnMainThread:@selector(didParse:)
 						   withObject:command
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyWillFetchSchema:(NSString *)schemaURLString;
-{
+- (void)strategyWillFetchSchema:(NSString *)schemaURLString {
 	[self performSelectorOnMainThread:@selector(willFetchSchema:)
 						   withObject:schemaURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyDidFetchSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration;
-{
+- (void)strategyDidFetchSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration {
 	[self performSelectorOnMainThread:@selector(didFetchSchema:)
 						   withObject:schemaURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyWillParseSchema:(NSString *)schemaURLString;
-{
+- (void)strategyWillParseSchema:(NSString *)schemaURLString {
 	[self performSelectorOnMainThread:@selector(willParseSchema:)
 						   withObject:schemaURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyDidParseSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration;
-{
+- (void)strategyDidParseSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration {
 	NSArray *args = [NSArray arrayWithObjects:schemaURLString, [NSNumber numberWithInt:duration], nil];
 	[self performSelectorOnMainThread:@selector(didParseSchema:)
 						   withObject:args
 						waitUntilDone:NO];
 }
 
-- (void)strategyWillFetchSource:(NSString *)sourceURLString;
-{
+- (void)strategyWillFetchSource:(NSString *)sourceURLString {
 	[self performSelectorOnMainThread:@selector(willFetchSource:)
 						   withObject:sourceURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyDidFetchSource:(NSString *)sourceURLString duration:(NSTimeInterval)duration;
-{
+- (void)strategyDidFetchSource:(NSString *)sourceURLString duration:(NSTimeInterval)duration {
 	[self performSelectorOnMainThread:@selector(didFetchSource:)
 						   withObject:sourceURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyWillParseSource:(NSString *)sourceURLString;
-{
+- (void)strategyWillParseSource:(NSString *)sourceURLString {
 	[self performSelectorOnMainThread:@selector(willParseSource:)
 						   withObject:sourceURLString
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyDidParseSource:(NSString *)sourceURLString sourceXMLString:(NSString *)XMLString duration:(NSTimeInterval)duration;
-{
+- (void)strategyDidParseSource:(NSString *)sourceURLString sourceXMLString:(NSString *)XMLString duration:(NSTimeInterval)duration {
 	NSArray *args = [NSArray arrayWithObjects:sourceURLString, XMLString, [NSNumber numberWithInt:duration], nil];
 	[self performSelectorOnMainThread:@selector(didParseSource:)
 						   withObject:args
@@ -201,16 +185,14 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-- (void)strategyAssertFired:(NSDictionary *)info;
-{
+- (void)strategyAssertFired:(NSDictionary *)info {
 	[self performSelectorOnMainThread:@selector(assertFired:)
 						   withObject:info
 						waitUntilDone:NO];
 }
 
 
-- (void)strategyReportFired:(NSDictionary *)info;
-{
+- (void)strategyReportFired:(NSDictionary *)info {
 	[self performSelectorOnMainThread:@selector(reportFired:)
 						   withObject:info
 						waitUntilDone:NO];
@@ -220,26 +202,22 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 #pragma mark -
 #pragma mark PrivateDelegateCalltos
 
-- (void)willParse:(XMLParseCommand *)command;
-{
+- (void)willParse:(XMLParseCommand *)command {
 	[delegate parsingService:self willParse:command];
 }
 
 
-- (void)didParse:(XMLParseCommand *)command;
-{
+- (void)didParse:(XMLParseCommand *)command {
 	[delegate parsingService:self didParse:command];
 }
 
 
-- (void)willParseSchema:(NSString *)schemaURLString;
-{
+- (void)willParseSchema:(NSString *)schemaURLString {
 	[delegate parsingService:self willParseSchema:schemaURLString];
 }
 
 
-- (void)didParseSchema:(NSArray *)args;
-{
+- (void)didParseSchema:(NSArray *)args {
 	NSString *schemaURLString = [args objectAtIndex:0];
 	NSTimeInterval duration   = [[args objectAtIndex:1] intValue];
 	
@@ -247,14 +225,12 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-- (void)willParseSource:(NSString *)sourceURLString;
-{
+- (void)willParseSource:(NSString *)sourceURLString {
 	[delegate parsingService:self willParseSource:sourceURLString];
 }
 
 
-- (void)didParseSource:(NSArray *)args;
-{
+- (void)didParseSource:(NSArray *)args {
 	NSString *sourceURLString = [args objectAtIndex:0];
 	NSString *XMLString = [args objectAtIndex:1];
 	NSTimeInterval duration   = [[args objectAtIndex:2] intValue];
@@ -265,8 +241,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 #pragma mark -
 #pragma mark Private
 
-- (void)doParse:(XMLParseCommand *)command;
-{
+- (void)doParse:(XMLParseCommand *)command {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self setupErrorHandlers];
@@ -279,8 +254,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-- (void)setStrategyForParseCommand:(XMLParseCommand *)command;
-{
+- (void)setStrategyForParseCommand:(XMLParseCommand *)command {
 	XMLValidationType type = [command validationType];
 	
 	Class class;
@@ -319,34 +293,29 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 
 #pragma mark ErrorHandler 
 
-- (void)warning:(NSDictionary *)info;
-{
+- (void)warning:(NSDictionary *)info {
 	[delegate parsingService:self warning:info];
 }
 
 
-- (void)error:(NSDictionary *)info;
-{
+- (void)error:(NSDictionary *)info {
 	[delegate parsingService:self error:info];
 }
 
 
-- (void)fatalError:(NSDictionary *)info;
-{
+- (void)fatalError:(NSDictionary *)info {
 	[delegate parsingService:self fatalError:info];
 }
 
 
 #pragma mark SchematronMessageHandler 
 
-- (void)assertFired:(NSDictionary *)info;
-{
+- (void)assertFired:(NSDictionary *)info {
 	[delegate parsingService:self assertFired:info];
 }
 
 
-- (void)reportFired:(NSDictionary *)info;
-{
+- (void)reportFired:(NSDictionary *)info {
 	[delegate parsingService:self reportFired:info];
 }
 
@@ -690,14 +659,12 @@ void myGenericErrorHandler(id self, const char *msg, ...)
 #pragma mark -
 #pragma mark Accessors
 
-- (XMLParsingStrategy *)strategy;
-{
+- (XMLParsingStrategy *)strategy {
 	return strategy;
 }
 
 
-- (void)setStrategy:(XMLParsingStrategy *)newStrategy;
-{
+- (void)setStrategy:(XMLParsingStrategy *)newStrategy {
 	if (strategy != newStrategy) {
 		[strategy autorelease];
 		strategy = [newStrategy retain];

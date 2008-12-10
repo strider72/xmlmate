@@ -8,13 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @class XMLMateController;
 
 @protocol TMPlugInController
 - (float)version;
 @end
-
 
 @interface XMLMatePlugIn : NSObject {
 	XMLMateController *controller;

@@ -15,8 +15,7 @@
 
 @implementation XMLParsingAutoDTDStrategy
 
-- (void)parse:(XMLParseCommand *)command;
-{
+- (void)parse:(XMLParseCommand *)command {
 	//NSLog(@"XMLParsingAutoDTDStrategy parse:");
 
 	xmlDocPtr docPtr	= NULL;
