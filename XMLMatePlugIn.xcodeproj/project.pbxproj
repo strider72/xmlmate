@@ -11,6 +11,7 @@
 		D3066D9C0CDA268E00D3EB73 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3066D9B0CDA268E00D3EB73 /* libxml2.dylib */; };
 		D31479FF0BD985BD00DDC923 /* XPathResultTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31479FD0BD985BD00DDC923 /* XPathResultTextView.m */; };
 		D327E8F60BA9B64C00A80E45 /* NSXMLDocument+SyntaxHightlite.m in Sources */ = {isa = PBXBuildFile; fileRef = D327E8F40BA9B64C00A80E45 /* NSXMLDocument+SyntaxHightlite.m */; };
+		D32D17190EEE25CA00416861 /* XMLMatePalette.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32D17170EEE25CA00416861 /* XMLMatePalette.xib */; };
 		D32D33E30CDB9EB800378D15 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32D33E20CDB9EB800378D15 /* Cocoa.framework */; };
 		D32D36620CDB9EC800378D15 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32D36610CDB9EC800378D15 /* WebKit.framework */; };
 		D32D387D0CDB9EDF00378D15 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32D387A0CDB9EDF00378D15 /* AppKit.framework */; };
@@ -23,7 +24,6 @@
 		D3CEBCF80B48B9CF00771CFB /* emptyCatalog.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3CEBCF70B48B9CF00771CFB /* emptyCatalog.xml */; };
 		D3E5E7DF0B3D8A8B00C29ACF /* XMLMatePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5E7DE0B3D8A8B00C29ACF /* XMLMatePlugIn.m */; };
 		D3E5E87C0B3D935D00C29ACF /* XMLMateController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5E87B0B3D935D00C29ACF /* XMLMateController.m */; };
-		D3E5E8C50B3D962D00C29ACF /* XMLMatePalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = D3E5E8C40B3D962D00C29ACF /* XMLMatePalette.nib */; };
 		D3E5E8D60B3D984400C29ACF /* BorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5E8D50B3D984400C29ACF /* BorderView.m */; };
 		D3E5E9760B3D9FF300C29ACF /* XMLParseCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5E9750B3D9FF300C29ACF /* XMLParseCommand.m */; };
 		D3E5E9C00B3DB38200C29ACF /* XMLParsingServiceLibxmlImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E5E9BF0B3DB38200C29ACF /* XMLParsingServiceLibxmlImpl.m */; };
@@ -74,12 +74,13 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* XMLMatePlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLMatePlugIn_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* XMLMate.tmplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XMLMate.tmplugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3066D9B0CDA268E00D3EB73 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		D31479FC0BD985BD00DDC923 /* XPathResultTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathResultTextView.h; path = src/XPathResultTextView.h; sourceTree = "<group>"; };
 		D31479FD0BD985BD00DDC923 /* XPathResultTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathResultTextView.m; path = src/XPathResultTextView.m; sourceTree = "<group>"; };
 		D327E8F30BA9B64C00A80E45 /* NSXMLDocument+SyntaxHighlite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "NSXMLDocument+SyntaxHighlite.h"; path = "src/NSXMLDocument+SyntaxHighlite.h"; sourceTree = "<group>"; };
 		D327E8F40BA9B64C00A80E45 /* NSXMLDocument+SyntaxHightlite.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "NSXMLDocument+SyntaxHightlite.m"; path = "src/NSXMLDocument+SyntaxHightlite.m"; sourceTree = "<group>"; };
+		D32D17180EEE25CA00416861 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/XMLMatePalette.xib; sourceTree = "<group>"; };
 		D32D33E20CDB9EB800378D15 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D32D36610CDB9EC800378D15 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D32D387A0CDB9EDF00378D15 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -100,7 +101,6 @@
 		D3E5E7DE0B3D8A8B00C29ACF /* XMLMatePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLMatePlugIn.m; path = src/XMLMatePlugIn.m; sourceTree = "<group>"; };
 		D3E5E87A0B3D935D00C29ACF /* XMLMateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLMateController.h; path = src/XMLMateController.h; sourceTree = "<group>"; };
 		D3E5E87B0B3D935D00C29ACF /* XMLMateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLMateController.m; path = src/XMLMateController.m; sourceTree = "<group>"; };
-		D3E5E8C40B3D962D00C29ACF /* XMLMatePalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = XMLMatePalette.nib; path = res/XMLMatePalette.nib; sourceTree = "<group>"; };
 		D3E5E8D40B3D984400C29ACF /* BorderView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = BorderView.h; path = src/BorderView.h; sourceTree = "<group>"; };
 		D3E5E8D50B3D984400C29ACF /* BorderView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = BorderView.m; path = src/BorderView.m; sourceTree = "<group>"; };
 		D3E5E9740B3D9FF300C29ACF /* XMLParseCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = XMLParseCommand.h; path = src/XMLParseCommand.h; sourceTree = "<group>"; };
@@ -277,11 +277,11 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D32D17170EEE25CA00416861 /* XMLMatePalette.xib */,
 				D3CEBCF70B48B9CF00771CFB /* emptyCatalog.xml */,
 				D3EE3AEF0B436DE10064C73A /* sch-custom.xsl */,
 				D3EE3AF00B436DE10064C73A /* skeleton-1.5.xsl */,
 				D3E5F1D20B3F062F00C29ACF /* Images */,
-				D3E5E8C40B3D962D00C29ACF /* XMLMatePalette.nib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 				D3E5EE5B0B3EE5FD00C29ACF /* results.html */,
@@ -616,11 +616,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
-				D3E5E8C50B3D962D00C29ACF /* XMLMatePalette.nib in Resources */,
 				D3E5EE5C0B3EE5FD00C29ACF /* results.html in Resources */,
 				D3EE3AF10B436DE10064C73A /* sch-custom.xsl in Resources */,
 				D3EE3AF20B436DE10064C73A /* skeleton-1.5.xsl in Resources */,
 				D3CEBCF80B48B9CF00771CFB /* emptyCatalog.xml in Resources */,
+				D32D17190EEE25CA00416861 /* XMLMatePalette.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,7 +638,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$HOME/Library/Application Support/TextMate/PlugIns\"\ncp -pR \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \"$HOME/Library/Application Support/TextMate/PlugIns\"\nkillall TextMate\nopen /Applications/Utilities/Console.app\nopen /Applications/TextMate.app";
+			shellScript = "#mkdir -p \"$HOME/Library/Application Support/TextMate/PlugIns\"\n#cp -pR \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \"$HOME/Library/Application Support/TextMate/PlugIns\"\n#killall TextMate\n#open /Applications/Utilities/Console.app\n#open /Applications/TextMate.app";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -687,6 +687,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		D32D17170EEE25CA00416861 /* XMLMatePalette.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D32D17180EEE25CA00416861 /* English */,
+			);
+			name = XMLMatePalette.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -703,8 +711,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XMLMatePlugIn_Prefix.pch;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(LIBXML_PREFIX)",
 					"$(LIBXSLT_PREFIX)",
@@ -714,7 +726,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Application Support/TextMate/PlugIns";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = XMLMate;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = tmplugin;
 				ZERO_LINK = NO;
 			};
