@@ -319,8 +319,7 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 }
 
 
-static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *msg)
-{
+static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *msg) {
     const xmlChar *cur, *base;
     unsigned int n, col;	/* GCC warns if signed, because compared with sizeof() */
     xmlChar  content[81]; /* space for 80 chars + line terminator */
@@ -382,10 +381,12 @@ static void myParserPrintFileContext(xmlParserInputPtr input, NSMutableString *m
 
 
 static void myStructuredErrorAdapter(id self, xmlErrorPtr err) {
-	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:7];
-	
-	xmlParserCtxtPtr ctxt = err->ctxt;
-	const char *str = err->message;
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:7];
+    
+    // context is incomplete and preventing the display of error line numbers for xml schema
+    //xmlParserCtxtPtr ctxt = err->ctxt;
+    xmlParserCtxtPtr ctxt = NULL;
+    const char *str = err->message;
 	
     char *file = NULL;
     int line = 0;
