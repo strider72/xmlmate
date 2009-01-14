@@ -36,7 +36,7 @@ typedef enum {
 - (void)goToColumnNumber:(id)fp8;
 - (void)selectToLine:(id)fp8 andColumn:(id)fp12;
 - (void)centerSelectionInVisibleArea:(id)fp8;
-- (void)scrollViewByX:(float)fp8 byY:(long)fp12;
+- (void)scrollViewByX:(CGFloat)fp8 byY:(long)fp12;
 
 - (void)centerCaretInDisplay:(id)fp8;
 - (void)setSelectionNeedsDisplay:(BOOL)fp8;
@@ -109,7 +109,7 @@ typedef enum {
 - (void)playWarningSound;
 - (void)playSoundNamed:(NSString *)name;
 - (void)changeSizeForSettings;
-- (void)errorItemClicked:(float)line filename:(NSString *)filename;
+- (void)errorItemClicked:(CGFloat)line filename:(NSString *)filename;
 - (void)doProblemItemWithClassName:(NSString *)className error:(NSDictionary *)info;
 - (id)firstSubviewOfView:(NSView *)superview kindOfClass:(Class)c;
 - (void)fetchSourceXMLDataFromOakTextView;
@@ -573,7 +573,7 @@ typedef enum {
 }
 
 
-- (void)errorItemClicked:(float)line filename:(NSString *)filename {
+- (void)errorItemClicked:(CGFloat)line filename:(NSString *)filename {
 	//NSLog(@"errorItemClicked: line: %f, filename: %@", line, filename);
 
 	NSWindow *win = [self findOpenTextMateWindowForFilename:filename];
@@ -1086,7 +1086,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSSplitViewDelegate
 
-- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(NSInteger)offset {
+- (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
 	if (offset == 0) {
 		NSRect r = [[self window] frame];
 		return r.size.height - 129;
@@ -1095,7 +1095,7 @@ typedef enum {
 }
 
 
-- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(NSInteger)offset {
+- (CGFloat)splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
 	if (offset == 0) {
 		return 30;
 	}

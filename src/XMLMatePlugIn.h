@@ -11,7 +11,7 @@
 @class XMLMateController;
 
 @protocol TMPlugInController
-- (float)version;
+- (CGFloat)version;
 @end
 
 @interface XMLMatePlugIn : NSObject {
