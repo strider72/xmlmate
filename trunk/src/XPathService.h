@@ -12,7 +12,7 @@
 
 @protocol XPathService <NSObject>
 - (id)initWithDelegate:(id)d;
-- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command;
+- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)c;
 @end
 
 @interface NSObject (XPathServiceDelegate)

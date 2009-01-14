@@ -16,7 +16,7 @@
 
 @interface XPathServiceLibxmlImpl (Private)
 - (void)doExecuteQuery:(NSArray *)args;
-- (int)optionsForCommand:(XMLParseCommand *)command;
+- (NSInteger)optionsForCommand:(XMLParseCommand *)command;
 - (id)resultsForExpr:(NSString *)xpathExr XMLString:(NSString *)XMLString error:(NSError **)err;
 - (NSAttributedString *)attributedStringFromError:(NSError *)err;
 - (void)success:(id)sequence;
@@ -47,8 +47,8 @@
 #pragma mark -
 #pragma mark XPathService
 
-- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)command {
-	NSArray *args = [NSArray arrayWithObjects:XPathString, command, nil];
+- (void)executeQuery:(NSString *)XPathString withCommand:(XMLParseCommand *)c {
+	NSArray *args = [NSArray arrayWithObjects:XPathString, c, nil];
 	[NSThread detachNewThreadSelector:@selector(doExecuteQuery:) toTarget:self withObject:args];
 }
 
@@ -160,7 +160,7 @@ leave:
 }
 
 
-- (int)optionsForCommand:(XMLParseCommand *)command {
+- (NSInteger)optionsForCommand:(XMLParseCommand *)command {
 	int opts = 0; //XML_PARSE_PEDANTIC;
 	
 	if ([command loadDTD])

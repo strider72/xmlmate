@@ -41,7 +41,7 @@
 }
 
 
-- (int)optionsForCommand:(XMLParseCommand *)command {
+- (NSInteger)optionsForCommand:(XMLParseCommand *)command {
 	int opts = 0; //XML_PARSE_PEDANTIC;
 	
 	if ([command loadDTD])

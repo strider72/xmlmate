@@ -13,8 +13,8 @@
 	NSString *orig;
 	NSString *replace;
 }
-- (int)type;
-- (void)setType:(int)newType;
+- (NSInteger)type;
+- (void)setType:(NSInteger)newType;
 - (NSString *)orig;
 - (void)setOrig:(NSString *)newStr;
 - (NSString *)replace;

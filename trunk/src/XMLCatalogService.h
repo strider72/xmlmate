@@ -10,7 +10,7 @@
 
 @protocol XMLCatalogService <NSObject>
 - (id)initWithDelegate:(id)aDelegate environmentVariables:(id)vars;
-- (void)setPrefer:(int)n;
+- (void)setPrefer:(NSInteger)n;
 - (void)putCatalogContents:(NSArray *)catalogContents;
 @end
 
