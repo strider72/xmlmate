@@ -18,6 +18,6 @@
 - (id)initWithService:(XMLParsingServiceLibxmlImpl *)aService;
 - (void)parse:(XMLParseCommand *)command;
 
-- (int)optionsForCommand:(XMLParseCommand *)command;
+- (NSInteger)optionsForCommand:(XMLParseCommand *)command;
 - (NSData *)fetchDataForResource:(NSString *)URLString error:(NSError **)err;
 @end

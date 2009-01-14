@@ -4,14 +4,14 @@
 
 - (id)initWithFrame:(NSRect)frameRect {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
-		topColor = [NSColor grayColor];
+		self.topColor = [NSColor grayColor];
 	}
 	return self;
 }
 
 
 - (void)dealloc {
-	[topColor release];
+	self.topColor = nil;
 	[super dealloc];
 }
 
@@ -23,4 +23,5 @@
 
 }
 
+@synthesize topColor;
 @end

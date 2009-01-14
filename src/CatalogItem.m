@@ -43,12 +43,12 @@
 #pragma mark -
 #pragma mark Accessors
 
-- (int)type {
+- (NSInteger)type {
 	return type;
 }
 
 
-- (void)setType:(int)newType {
+- (void)setType:(NSInteger)newType {
 	type = newType;
 }
 

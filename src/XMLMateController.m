@@ -44,8 +44,8 @@ typedef enum {
 - (id)xmlRepresentationForSelection:(BOOL)fp8;
 - (id)xmlRepresentation;
 - (id)xmlRepresentationForSelection;
-- (int)currentIndentForContent:(id)fp8 atLine:(unsigned long)fp12;
-- (int)indentForCurrentLine;
+- (NSInteger)currentIndentForContent:(id)fp8 atLine:(unsigned long)fp12;
+- (NSInteger)indentForCurrentLine;
 - (unsigned long)currentIndent;
 - (unsigned long)indentLine:(unsigned long)fp8;
 
@@ -134,10 +134,7 @@ typedef enum {
 		self.parsingService = [[[XMLParsingServiceLibxmlImpl alloc] initWithDelegate:self] autorelease];
 		self.xpathService = [[[XPathServiceLibxmlImpl alloc] initWithDelegate:self] autorelease];
 		
-        //id vars = [OakTextView defaultEnvironmentVariables];
 		id vars = [[self currentOakTextView] environmentVariables];
-		//NSLog(@"defaultEnvironmentVariables: %@",[OakTextView defaultEnvironmentVariables]);
-		//NSLog(@"defaultEnvironmentVariables: %@",[[self currentOakTextView] environmentVariables]);
 		self.catalogService = [[[XMLCatalogServiceLibxmlImpl alloc] initWithDelegate:self environmentVariables:vars] autorelease];
 	}
 	return self;
@@ -711,7 +708,6 @@ typedef enum {
 
 
 - (void)catalogService:(id <XMLCatalogService>)service didError:(NSDictionary *)errInfo {
-	//NSLog(@"error!!!!!!!!!");
 	[self setBusy:NO];
 }
 
@@ -720,11 +716,8 @@ typedef enum {
 #pragma mark XMLParsingServiceDelegate
 
 - (void)parsingService:(id <XMLParsingService>)service willParse:(XMLParseCommand *)c {
-	//NSLog(@"controller willParse:");
-	
-	if (![command verbose]) {
-		return;
-	}	
+
+	if (![command verbose]) return;	
 	
 	BOOL checkedValidity = (XMLValidationTypeNone != [command validationType]);
 
@@ -798,11 +791,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service willFetchSchema:(NSString *)schemaURLString {
-	//NSLog(@"controller willFetchSchema:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 	
 	NSString *schemaType = [self nameForValidationType:[command validationType]];
 	
@@ -815,11 +804,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service didFetchSchema:(NSString *)schemaURLString {
-	//NSLog(@"controller didFetchSchema:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 	
 	NSString *schemaType = [self nameForValidationType:[command validationType]];
 	
@@ -832,11 +817,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service willParseSchema:(NSString *)schemaURLString {
-	//NSLog(@"controller willParseSchema:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 	
 	NSString *schemaType = [self nameForValidationType:[command validationType]];
 	
@@ -849,11 +830,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service didParseSchema:(NSString *)schemaURLString duration:(NSTimeInterval)duration {
-	//NSLog(@"controller didParseSchema:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 
 	NSString *schemaType = [self nameForValidationType:[command validationType]];
 	
@@ -867,11 +844,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service willFetchSource:(NSString *)sourceURLString {
-	//NSLog(@"controller willFetchSource:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 	
 	NSString *filename = [sourceURLString lastPathComponent];
 	
@@ -882,11 +855,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service didFetchSource:(NSString *)sourceURLString duration:(NSTimeInterval)duration {
-	//NSLog(@"controller didFetchSource:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 	
 	NSString *filename = [sourceURLString lastPathComponent];
 	
@@ -897,11 +866,7 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service willParseSource:(NSString *)sourceURLString {
-	//NSLog(@"controller willParseSource:");
-	
-	if (![command verbose]) {
-		return;
-	}
+	if (![command verbose]) return;
 
 	NSString *filename = [sourceURLString lastPathComponent];
 	
@@ -912,13 +877,9 @@ typedef enum {
 
 
 - (void)parsingService:(id <XMLParsingService>)service didParseSource:(NSString *)sourceURLString sourceXMLString:(NSString *)data duration:(NSTimeInterval)duration {
-	//NSLog(@"controller didParseSource:");
-
 	[self setSourceXMLString:data];
 
-	if (![command verbose]) {
-		return;
-	}	
+	if (![command verbose]) return;	
 
 	NSString *filename = [sourceURLString lastPathComponent];
 	
@@ -1047,7 +1008,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSComboBoxDataSource
 
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index {
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
 	if (aComboBox == schemaURLComboBox) {
 		return [recentSchemaURLStrings objectAtIndex:index];
 	} else {
@@ -1056,7 +1017,7 @@ typedef enum {
 }
 
 
-- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
 	if (aComboBox == schemaURLComboBox) {
 		return [recentSchemaURLStrings count];
 	} else {
@@ -1125,7 +1086,7 @@ typedef enum {
 #pragma mark -
 #pragma mark NSSplitViewDelegate
 
-- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
+- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(NSInteger)offset {
 	if (offset == 0) {
 		NSRect r = [[self window] frame];
 		return r.size.height - 129;
@@ -1134,7 +1095,7 @@ typedef enum {
 }
 
 
-- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
+- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(NSInteger)offset {
 	if (offset == 0) {
 		return 30;
 	}
@@ -1148,7 +1109,6 @@ typedef enum {
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	id textField = [aNotification object];
 	if ([textField isDescendantOf:catalogTable]) {
-		//NSLog(@"textField: %@", textField);
 		[self updateCatalog];
 	}
 }
@@ -1158,7 +1118,6 @@ typedef enum {
 	id menu = [aNotification object];
 	if ([[[menu itemAtIndex:0] title] isEqualToString:@"Disabled"] 
 		&& [[[menu itemAtIndex:1] title] isEqualToString:@"Public"]) {
-		//NSLog(@"here");
 		[self updateCatalog];
 	}
 }

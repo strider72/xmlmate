@@ -56,7 +56,7 @@ static const char * const typeNames[] = {
 #pragma mark -
 #pragma mark XMLCatalogService
 
-- (void)setPrefer:(int)n {
+- (void)setPrefer:(NSInteger)n {
 	//NSLog(@"setting prefer: %d", n);
 	@synchronized(self) {
 		xmlCatalogSetDefaultPrefer(1);
