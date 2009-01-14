@@ -102,8 +102,6 @@ typedef enum {
 - (void)updateCatalog;
 - (BOOL)addRecentSchemaURLString:(NSString *)str;
 - (BOOL)addRecentXPathString:(NSString *)str;
-- (NSArray *)contextMenuItems;
-- (void)setContextMenuItems:(NSArray *)newItems;
 - (NSString *)HTMLStringForErrorInfo:(NSDictionary *)info;
 - (void)appendResultItemWithClassName:(NSString *)className innerHTML:(NSString *)innerHTML attributes:(NSDictionary *)attrs;
 - (void)playSuccessSound;
@@ -119,6 +117,11 @@ typedef enum {
 - (void)selectTextInCurrentOakTextView:(NSNumber *)lineObj;
 - (OakTextView *)currentOakTextView;
 - (void)appendQueryConsoleString:(NSString *)str;
+
+@property (nonatomic, retain) id <XMLParsingService> parsingService;
+@property (nonatomic, retain) id <XPathService> xpathService;
+@property (nonatomic, retain) id <XMLCatalogService> catalogService;
+@property (nonatomic, retain) NSArray *contextMenuItems;
 @end
 
 @implementation XMLMateController
@@ -128,31 +131,34 @@ typedef enum {
 	if (self != nil) {
 		[self setPlaySounds:YES];
 		[self setPreferedCatalogItemType:2];
-		parsingService = [[XMLParsingServiceLibxmlImpl alloc] initWithDelegate:self];
-		xpathService = [[XPathServiceLibxmlImpl alloc] initWithDelegate:self];
-		//id vars = [OakTextView defaultEnvironmentVariables];
+		self.parsingService = [[[XMLParsingServiceLibxmlImpl alloc] initWithDelegate:self] autorelease];
+		self.xpathService = [[[XPathServiceLibxmlImpl alloc] initWithDelegate:self] autorelease];
+		
+        //id vars = [OakTextView defaultEnvironmentVariables];
 		id vars = [[self currentOakTextView] environmentVariables];
 		//NSLog(@"defaultEnvironmentVariables: %@",[OakTextView defaultEnvironmentVariables]);
 		//NSLog(@"defaultEnvironmentVariables: %@",[[self currentOakTextView] environmentVariables]);
-		catalogService = [[XMLCatalogServiceLibxmlImpl alloc] initWithDelegate:self environmentVariables:vars];
+		self.catalogService = [[[XMLCatalogServiceLibxmlImpl alloc] initWithDelegate:self environmentVariables:vars] autorelease];
 	}
 	return self;
 }
 
 
 - (void)dealloc {
-	[parsingService release];
-	[catalogService release];
-	[xpathService release];
-	[self setContextMenuItems:nil];
-	[self setCatalogItems:nil];
-	[self setCommand:nil];
-	[self setRecentSchemaURLStrings:nil];
-	[self setRecentXPathStrings:nil];
-	[self setSourceXMLString:nil];
-	[self setCatalogXMLString:nil];
-	[self setQueryResultNodes:nil];
-	[self setQueryResultString:nil];
+	self.parsingService = nil;
+	self.catalogService = nil;
+	self.xpathService = nil;
+	self.catalogItems = nil;
+	self.command = nil;
+	self.recentSchemaURLStrings = nil;
+	self.recentXPathStrings = nil;
+	self.sourceXMLString = nil;
+	self.catalogXMLString = nil;
+    self.XPathString = nil;
+	self.queryResultString = nil;
+	self.queryConsoleString = nil;
+	self.queryResultNodes = nil;
+    self.contextMenuItems = nil;
 	[super dealloc];
 }
 

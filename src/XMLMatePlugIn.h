@@ -23,10 +23,7 @@
 
 - (void)installMenuItems;
 
-	// Actions
 - (void)showPalette:(id)sender;
 
-	// Accessors
-- (id)controller;
-- (void)setController:(id)newController;
+@property (nonatomic, retain) XMLMateController *controller;
 @end
