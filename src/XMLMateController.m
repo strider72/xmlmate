@@ -1166,183 +1166,31 @@ typedef enum {
 #pragma mark -
 #pragma mark Accessors
 
-- (BOOL)busy {
-	return busy;
-}
-
-
-- (void)setBusy:(BOOL)yn {
-	busy = yn;
-}
-
-
-- (BOOL)showSettings {
-	return showSettings;
-}
-
-
 - (void)setShowSettings:(BOOL)yn {
 	showSettings = yn;
 	[self changeSizeForSettings];
 }
 
 
-- (BOOL)playSounds {
-	return playSounds;
-}
-
-
-- (void)setPlaySounds:(BOOL)yn {
-	playSounds = yn;
-}
-
-
-- (int)preferedCatalogItemType {
-	return preferedCatalogItemType;
-}
-
-
-- (void)setPreferedCatalogItemType:(int)n {
+- (void)setPreferedCatalogItemType:(NSInteger)n {
 	preferedCatalogItemType = n;
 	[catalogService setPrefer:n];
 }
 
-- (NSMutableArray *)catalogItems {
-	return catalogItems;
-}
+@synthesize busy;
+@synthesize showSettings;
+@synthesize playSounds;
+@synthesize preferedCatalogItemType;
+@synthesize catalogItems;
+@synthesize command;
+@synthesize recentSchemaURLStrings;
+@synthesize recentXPathStrings;
+@synthesize sourceXMLString;
+@synthesize catalogXMLString;
 
-
-- (void)setCatalogItems:(NSMutableArray *)newItems {
-	if (catalogItems != newItems) {
-		[catalogItems autorelease];
-		catalogItems = [newItems retain];
-	}
-}
-
-
-- (XMLParseCommand *)command {
-	return command;
-}
-
-
-- (void)setCommand:(XMLParseCommand *)c {
-	if (command != c) {
-		[command autorelease];
-		command = [c retain];
-	}
-}
-
-
-- (NSMutableArray *)recentSchemaURLStrings {
-	return recentSchemaURLStrings;
-}
-
-
-- (void)setRecentSchemaURLStrings:(NSMutableArray *)newStrs {
-	if (recentSchemaURLStrings != newStrs) {
-		[recentSchemaURLStrings autorelease];
-		recentSchemaURLStrings = [newStrs retain];
-	}
-}
-
-
-- (NSMutableArray *)recentXPathStrings {
-	return recentXPathStrings;
-}
-
-
-- (void)setRecentXPathStrings:(NSMutableArray *)newStrs {
-	if (recentXPathStrings != newStrs) {
-		[recentXPathStrings autorelease];
-		recentXPathStrings = [newStrs retain];
-	}
-}
-
-
-- (NSString *)sourceXMLString {
-	return sourceXMLString;
-}
-
-
-- (void)setSourceXMLString:(NSString *)newStr {
-	if (sourceXMLString != newStr) {
-		[sourceXMLString autorelease];
-		sourceXMLString = [newStr retain];
-	}
-}
-
-
-- (NSString *)catalogXMLString {
-	return catalogXMLString;
-}
-
-
-- (void)setCatalogXMLString:(NSString *)newStr {
-	if (catalogXMLString != newStr) {
-		[catalogXMLString autorelease];
-		catalogXMLString = [newStr retain];
-	}
-}
-
-- (NSString *)XPathString {
-	return XPathString;
-}
-
-
-- (void)setXPathString:(NSString *)newStr {
-	if (XPathString != newStr) {
-		[XPathString autorelease];
-		XPathString = [newStr retain];
-	}
-}
-
-
-- (NSAttributedString *)queryResultString {
-	return queryResultString;
-}
-
-
-- (void)setQueryResultString:(NSAttributedString *)newStr {
-	if (queryResultString != newStr) {
-		[queryResultString autorelease];
-		queryResultString = [newStr retain];
-	}
-}
-
-
-- (NSMutableString *)queryConsoleString {
-	return queryConsoleString;
-}
-
-
-- (void)setQueryConsoleString:(NSMutableString *)newStr {
-	if (queryConsoleString != newStr) {
-		[queryConsoleString autorelease];
-		queryConsoleString = [newStr retain];
-	}
-}
-
-
-- (int)queryResultLength {
-	return queryResultLength;
-}
-
-
-- (void)setQueryResultLength:(int)n {
-	queryResultLength = n;
-}
-
-
-- (NSArray *)queryResultNodes {
-	return queryResultNodes;
-}
-
-
-- (void)setQueryResultNodes:(NSArray *)a {
-	if (queryResultNodes != a) {
-		[queryResultNodes autorelease];
-		queryResultNodes = [a retain];
-	}
-}
-
+@synthesize XPathString;
+@synthesize queryResultString;
+@synthesize queryConsoleString;
+@synthesize queryResultLength;
+@synthesize queryResultNodes;
 @end
