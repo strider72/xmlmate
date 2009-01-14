@@ -62,7 +62,7 @@ static NSString * const PrefsFileExt				= @"plist";
 
 
 - (void)dealloc {
-	[self setController:nil];
+	self.controller = nil;
 	[super dealloc];
 }
 
@@ -202,20 +202,5 @@ static NSString * const PrefsFileExt				= @"plist";
 	[self setController:nil];
 }
 
-
-#pragma mark -
-#pragma mark Accessors
-
-- (id)controller {
-	return controller;
-}
-
-
-- (void)setController:(id)newController {
-	if (controller != newController) {
-		[controller autorelease];
-		controller = [newController retain];
-	}
-}
-
+@synthesize controller;
 @end
