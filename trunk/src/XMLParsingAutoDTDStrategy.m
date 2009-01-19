@@ -78,13 +78,14 @@
 		goto leave;
 	}
 
-	xmlChar *mem;
-	int size;
+	xmlChar *mem = NULL;
+	int size = 0;
 	xmlDocDumpMemoryEnc(docPtr, &mem, &size, "utf-8");
 	NSString *XMLString = [[[NSString alloc] initWithBytesNoCopy:mem
 														  length:size
 														encoding:NSUTF8StringEncoding
-													freeWhenDone:YES] autorelease];
+													freeWhenDone:NO] autorelease];
+	xmlFree((void *)mem);
 	
 	[service strategyDidParseSource:sourceURLString sourceXMLString:XMLString duration:duration];
 	
