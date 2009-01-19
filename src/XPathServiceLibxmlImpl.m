@@ -129,7 +129,8 @@ static void switchToParseTabStructuredHandler(id self, xmlErrorPtr error) {
 	NSString *XMLString = [[[NSString alloc] initWithBytesNoCopy:docTxtPtr
 														  length:docTxtLen
 														encoding:NSUTF8StringEncoding
-													freeWhenDone:YES] autorelease];
+													freeWhenDone:NO] autorelease];
+	xmlFree((void *)docTxtPtr);
 	
 	NSError *err = nil;
 	id results = [self resultsForExpr:xpathExpr XMLString:XMLString error:&err];
